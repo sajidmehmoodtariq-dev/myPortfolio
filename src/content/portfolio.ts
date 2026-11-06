@@ -27,7 +27,7 @@ export const portfolioIdentity = {
       source: "Prompt 01 owner brief",
     },
     {
-      text: "Completed Harvard CS50x and is expanding into machine learning and applied AI.",
+      text: "Expanding into machine learning and applied AI.",
       status: "owner-supplied",
       source: "Prompt 01 owner brief",
     },

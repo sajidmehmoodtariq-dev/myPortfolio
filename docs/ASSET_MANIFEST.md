@@ -39,3 +39,16 @@ The toolbox uses annotated HTML modules with the same technical grid and surface
 ## Social preview
 
 `public/social/portfolio.png` is a 1200 × 630 branded card composed from the system poster, portfolio typography, and the verified identity. The card is shared across the homepage and case studies. Its absolute URL is emitted when a public origin is configured.
+
+## Credentials Archive
+
+The owner supplied `CS50x_2.pdf` and `CS50AI_2.pdf` for public display. The runtime PDFs below are byte-for-byte copies. Poppler rendered the complete single-page originals at each target width, and Pillow encoded the resulting images as WebP at quality 92. The resulting images preserve the page edges, signature, QR code, and verification address.
+
+| Runtime files in `public/credentials/` | Dimensions | CS50x / CS50 AI size |
+| --- | --- | --- |
+| `cs50x.pdf`, `cs50ai.pdf` | US Letter, landscape | 415 / 415 KiB |
+| `cs50x-720.webp`, `cs50ai-720.webp` | 720 × 557 | 36 / 37 KiB |
+| `cs50x-1440.webp`, `cs50ai-1440.webp` | 1440 × 1113 | 96 / 98 KiB |
+| `cs50x-2200.webp`, `cs50ai-2200.webp` | 2200 × 1700 | 160 / 168 KiB |
+
+The wide layout uses the 1440px preview. In the compact layout, the browser chooses between the 720px and 1440px variants based on the viewport and pixel density. The 2200px asset is requested only when the visitor opens the inspection viewer. The PDF is fetched when the visitor opens the original. The [credential registry](../src/content/credentials.ts) owns public document paths and official verification URLs.

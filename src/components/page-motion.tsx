@@ -17,6 +17,9 @@ const setup: SceneSetup = (main, gsap, media) => {
     [".work-gallery-scene", 0.62, 0.87, 0.68],
     ["#toolbox", 0.63, 0.49, 0.67],
     ["#about", 0.34, 0.53, 0.31],
+    // Keep both the stroke and its leading marker in the page gutter around the documents.
+    ["#credentials", 0.02, 0, 0.024],
+    ["#credentials", 0.02, 1, 0.024],
     ["#notes", 0.62, 0.55, 0.67],
     ["#contact", 0.51, 0.19, 0.45],
   ] as const;

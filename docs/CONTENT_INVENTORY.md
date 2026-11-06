@@ -11,14 +11,15 @@
 | Nudge | App input and navigation, SQLite reminder lifecycle, Notifee triggers, and the public Android reminder screenshot | Contribution scope, store release, device coverage, and notification reliability |
 | Client Job Portal | Owner brief identifies the ServiceM8 recruitment project and its technical focus | Clearance for public discussion, scope and role, redacted OAuth and role-flow evidence, approved imagery, and any outcome. The project is held from the public listing until confirmed. |
 
-Keep client identities, credentials, and student records out of published content. Four featured visuals illustrate verified implementation flows. Nudge uses its repository screenshot. An implementation finding may describe what the code does. Any deployment, performance, adoption, or business outcome needs its own verifiable source. The notes index appears when approved articles are registered.
+Keep client identities, access credentials, and student records out of published content. Four featured visuals illustrate verified implementation flows. Nudge uses its repository screenshot. An implementation finding may describe what the code does. Any deployment, performance, adoption, or business outcome needs its own verifiable source. The notes index appears when approved articles are registered.
 
 ## Closing chapters
 
 | Area | Evidence used | Pending |
 | --- | --- | --- |
 | Toolbox | Local exhibit dependencies for Next.js, TypeScript, and GSAP. PGC-DHA, ResumeIQ, Folio, Ledger, and Nudge case-study sources support the linked examples. PGC-DHA includes [Vercel configuration](https://github.com/sajidmehmoodtariq-dev/PGC-DHA/blob/c7a83dc57f67d00ebda7cfef109e3df86f6ebdb8/client/vercel.json). Structura documents [C++ visualization](https://github.com/sajidmehmoodtariq-dev/Structura/blob/27277740702c8150c3679185e27f605a0d6a16ef/README.md) and contains [its Rust desktop shell](https://github.com/sajidmehmoodtariq-dev/Structura/blob/27277740702c8150c3679185e27f605a0d6a16ef/src-tauri/Cargo.toml). | Project-specific evidence for Three.js, Redis, and Linux. |
-| About and experience | Owner brief for freelance work, institutional and client applications, AI/ML interests, and CS50x. Public GitHub profile identifies the developer and BSCS at UET KSK. | Dates, additional role detail, and an approved portrait if one is wanted. |
+| About and experience | Owner brief for freelance work, institutional and client applications, and AI/ML interests. Public GitHub profile identifies the developer and BSCS at UET KSK. | Dates, additional role detail, and an approved portrait if one is wanted. |
+| Credentials Archive | Owner-approved original PDFs for CS50x (2025) and CS50’s Introduction to Artificial Intelligence with Python (2026), with official verification URLs in the [registry](../src/content/credentials.ts). Both are course-completion certificates. The BS Computer Science entry belongs to UET Lahore. | Further credentials require original evidence and publication approval. |
 | Engineering Notes | No approved authored articles were supplied. Public checks did not identify an authored article to republish. | Approved article text, title, summary, topic, and publication date. |
 | Contact | Owner-supplied GitHub and LinkedIn profiles, corroborated by the GitHub profile. | A verified public contact email. |
 

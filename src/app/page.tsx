@@ -29,7 +29,7 @@ export default function Home() {
       ]} />
       <SiteHeader showNotes={publishedNotes.length > 0} />
       <main id="main-content" className="portfolio-main" tabIndex={-1}>
-        <Hero chapterCount={publishedNotes.length > 0 ? "06" : "05"} />
+        <Hero chapterCount={publishedNotes.length > 0 ? "07" : "06"} />
         <SelectedWork />
         <Finale />
         <PageMotion />
