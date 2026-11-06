@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #0b1310;
+  --color-surface: #17211c;
+  --color-elevated: #202c25;
+  --color-border: #293830;
+  --color-accent: #e78a55;
+  --color-ink: #f3f4ef;
+  --color-muted: #94a69b;
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --page-gutter: clamp(1.25rem, 4vw, 3rem);
+  --content-width: 76rem;
+  --section-space: clamp(3rem, 8vw, 7rem);
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 10;
+  inset: 1rem auto auto var(--page-gutter);
+  transform: translateY(calc(-100% - 2rem));
+  background: var(--color-surface);
+  padding: 0.5rem 1rem;
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+.exhibit-container {
+  width: min(var(--content-width), 100% - 2 * var(--page-gutter));
+  margin-inline: auto;
+}
+
+.exhibit-section {
+  padding-block: var(--section-space);
+}
+
+.exhibit-section + .exhibit-section {
+  border-block-start: 1px solid var(--color-border);
+}
+
+.exhibit-section :is(h1, h2) {
+  font-size: clamp(1.75rem, 5vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.exhibit-index {
+  display: block;
+  margin-block-end: 0.75rem;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
