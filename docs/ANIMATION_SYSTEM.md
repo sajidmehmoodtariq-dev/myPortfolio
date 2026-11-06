@@ -14,9 +14,14 @@ On desktop fine-pointer devices, damped camera tilt is limited to three degrees 
 
 Each exhibit has a lightweight SVG segment with a shared endpoint and vertical tangent at its adjacent boundary. ScrollTrigger draws each segment as its exhibit enters and reveals the title and visual once. Wide screens get a small scroll-linked tilt and vertical offset on the media rig. There is no pinning. Case-study links use normal Next.js navigation with a short reveal on the destination page. Reduced motion leaves all copy, paths, and visuals settled.
 
+## Inside the System
+
+On desktop viewports at least 64rem wide and 42rem tall, the scene uses a short native sticky chapter. ScrollTrigger moves through the compact opening, expansion, settled assembly, and baked annotation reveal. Both the video playhead and the spline reverse on upward scroll. The assembly leaves the viewport in normal flow as the enquiry explanation comes into view. An anchor jumps directly to the six native layer disclosures, which work independently of media and JavaScript.
+
+The Selected Work trajectory ends at x=835 desktop and x=877 compact in normalized coordinates. The system scene begins there with a vertical tangent and joins the explanation at x=924 and x=954 respectively. Each segment completes at the same 70% viewport line used to start its successor. A short fade at x=903 or x=940 marks the entry into the toolbox shell. Reduced motion shows the full path and settled poster. Compact or short viewports skip the sticky chapter.
+
 ## Proposed choreography for later sections
 
-- **Inside the system.** Use buttons for layer selection, with visible active states and associated descriptions. Enter, Space, and tap update the same state. A new selection cancels any in-flight visual transition and settles within 350ms. Selection stays usable when 3D fails.
 - **Toolbox, experience, notes, and contact.** Keep lists and contact links in document flow. Connect them with the decorative path and end it at the contact heading. Avoid pinning these sections.
 
 Keep a single normalized progress value per scene. If needed, use GSAP and ScrollTrigger inside a scoped client wrapper and revert listeners and timelines on unmount and breakpoint change. Keep reserved geometry stable, animate transforms and opacity, and pause offscreen work. Consider React Three Fiber and Drei only where perspective or manipulation makes the exhibit clearer. Cap DPR at 1.5 initially and lower it if measured device performance warrants it. Add Lenis only if measured results justify it and keyboard, focus, and anchor behavior remain intact.
