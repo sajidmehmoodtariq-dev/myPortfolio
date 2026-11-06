@@ -19,14 +19,6 @@ const setup: SceneSetup = (system, gsap, media) => {
         scrollTrigger: { trigger: explanation, start: "top 90%", end: "top 65%", scrub: true },
       });
     }
-    for (const part of system.querySelectorAll("[data-system-scene], [data-system-explanation]")) {
-      const draw = gsap.timeline({
-        scrollTrigger: { trigger: part, start: "top 70%", end: "bottom 70%", scrub: true },
-      });
-      draw.fromTo(part.querySelectorAll(".system-signal path"), { strokeDashoffset: 1 }, {
-        strokeDashoffset: 0, autoRound: false, ease: "none", duration: 1,
-      });
-    }
   });
 };
 

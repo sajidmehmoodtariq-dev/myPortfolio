@@ -4,15 +4,17 @@ import { useRef } from "react";
 
 const links = [
   { label: "Work", href: "#work" },
+  { label: "Case studies", href: "/work" },
   { label: "About", href: "#about" },
   { label: "Notes", href: "#notes" },
   { label: "Contact", href: "#contact" },
 ] as const;
 
-export function SiteHeader({ onHomepage = true }: { onHomepage?: boolean }) {
+export function SiteHeader({ onHomepage = true, showNotes = false }: { onHomepage?: boolean; showNotes?: boolean }) {
   const menu = useRef<HTMLDetailsElement>(null);
   const toggle = useRef<HTMLElement>(null);
   const home = onHomepage ? "" : "/";
+  const visibleLinks = showNotes ? links : links.filter(({ href }) => href !== "#notes");
 
   return (
     <header className="site-header">
@@ -22,7 +24,7 @@ export function SiteHeader({ onHomepage = true }: { onHomepage?: boolean }) {
           <span className="brand-caption">The Engineering Exhibit</span>
         </a>
         <nav className="desktop-nav" aria-label="Primary">
-          {links.map(({ label, href }) => <a key={href} href={`${home}${href}`}>{label}</a>)}
+          {visibleLinks.map(({ label, href }) => <a key={href} href={href.startsWith("#") ? `${home}${href}` : href}>{label}</a>)}
         </nav>
         <details
           className="mobile-nav"
@@ -44,12 +46,12 @@ export function SiteHeader({ onHomepage = true }: { onHomepage?: boolean }) {
             Menu
             <span className="menu-glyph" aria-hidden="true" />
           </summary>
-          <nav aria-label="Primary">
-            {links.map(({ label, href }, index) => (
-              <a key={href} href={`${home}${href}`} onClick={(event) => {
+          <nav aria-label="Primary" data-lenis-prevent-wheel>
+            {visibleLinks.map(({ label, href }, index) => (
+              <a key={href} href={href.startsWith("#") ? `${home}${href}` : href} onClick={(event) => {
                 if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
                 if (menu.current) menu.current.open = false;
-                if (onHomepage) document.getElementById(href.slice(1))?.focus({ preventScroll: true });
+                if (onHomepage && href.startsWith("#")) document.getElementById(href.slice(1))?.focus({ preventScroll: true });
               }}>
                 <span aria-hidden="true">0{index + 1}</span>{label}
               </a>

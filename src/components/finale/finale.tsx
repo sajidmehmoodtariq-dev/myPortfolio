@@ -2,18 +2,16 @@ import Link from "next/link";
 import { formatNoteDate, publishedNotes } from "@/content/notes";
 import { portfolioIdentity } from "@/content/portfolio";
 import { toolbox } from "@/content/toolbox";
-import { ClosingSignal } from "./closing-signal";
 import { FinaleMotion } from "./finale-motion";
 import "./finale.css";
 
 function EngineeringToolbox() {
   return (
     <section id="toolbox" className="closing-chapter toolbox" aria-labelledby="toolbox-heading" tabIndex={-1} data-closing-chapter>
-      <ClosingSignal chapter="toolbox" />
       <div className="exhibit-container closing-inner">
         <header className="closing-heading">
           <div>
-            <p className="closing-kicker"><b>04</b> / Capabilities</p>
+            <p className="closing-kicker"><b>03</b> / Capabilities</p>
             <h2 id="toolbox-heading">Engineering toolbox<span aria-hidden="true">.</span></h2>
           </div>
           <p>Tools grouped by the work they support, with examples from the projects in this exhibit.</p>
@@ -29,11 +27,11 @@ function EngineeringToolbox() {
                 {group.examples.map(({ tools, label, href }) => (
                   <li key={tools[0]}>
                     <span className="toolbox-tools">{tools.join(" · ")}</span>
-                    {href?.startsWith("/work/") ? (
+                    {href.startsWith("/work/") ? (
                       <Link href={href}>{label} <span aria-hidden="true">↗</span></Link>
-                    ) : href ? (
+                    ) : (
                       <a href={href}>{label} <span aria-hidden="true">↗</span></a>
-                    ) : <span className="toolbox-pending">{label}</span>}
+                    )}
                   </li>
                 ))}
               </ul>
@@ -48,10 +46,9 @@ function EngineeringToolbox() {
 function ExperienceAbout() {
   return (
     <section id="about" className="closing-chapter experience" aria-labelledby="about-heading" tabIndex={-1} data-closing-chapter>
-      <ClosingSignal chapter="about" />
       <div className="exhibit-container closing-inner experience-layout">
         <header className="experience-intro">
-          <p className="closing-kicker"><b>05</b> / About &amp; experience</p>
+          <p className="closing-kicker"><b>04</b> / About &amp; experience</p>
           <h2 id="about-heading">{portfolioIdentity.name}<span aria-hidden="true">.</span></h2>
           <p className="experience-role">Software Engineer and Full-Stack Developer</p>
           <p>I build production software for institutions and clients, from application interfaces to the APIs and data behind them. I’m exploring how AI and machine learning can support tools people use in their work.</p>
@@ -81,15 +78,13 @@ function ExperienceAbout() {
 function EngineeringNotes() {
   return (
     <section id="notes" className="closing-chapter notes-chapter" aria-labelledby="notes-heading" tabIndex={-1} data-closing-chapter>
-      <ClosingSignal chapter="notes" />
       <div className="exhibit-container closing-inner notes-layout">
         <header>
-          <p className="closing-kicker"><b>06</b> / Writing</p>
+          <p className="closing-kicker"><b>05</b> / Writing</p>
           <h2 id="notes-heading">Engineering notes<span aria-hidden="true">.</span></h2>
           <p>Writing on application architecture, developer tools, and applied AI.</p>
         </header>
-        {publishedNotes.length > 0 ? (
-          <ul className="note-index" aria-label="Published engineering notes">
+        <ul className="note-index" aria-label="Published engineering notes">
             {publishedNotes.map((note) => (
               <li key={note.slug} data-note-reveal>
                 <article>
@@ -99,14 +94,7 @@ function EngineeringNotes() {
                 </article>
               </li>
             ))}
-          </ul>
-        ) : (
-          <div className="notes-empty" data-note-reveal>
-            <p className="closing-kicker"><b>00</b> / Published notes</p>
-            <p className="notes-empty__title">No notes published yet.</p>
-            <a className="closing-link" href="#work">Read the project case studies <span aria-hidden="true">↗</span></a>
-          </div>
-        )}
+        </ul>
       </div>
     </section>
   );
@@ -115,7 +103,6 @@ function EngineeringNotes() {
 function ContactScene() {
   return (
     <section id="contact" className="closing-chapter contact-scene" aria-labelledby="contact-heading" tabIndex={-1} data-closing-chapter>
-      <ClosingSignal chapter="contact" />
       <div className="contact-terminal" aria-hidden="true">
         <svg viewBox="0 0 240 240" className="contact-terminal__figure">
           <path d="M120 9v222M9 120h222M30 30h26m-26 0v26m180-26h-26m26 0v26M30 210h26m-26 0v-26m180 26h-26m26 0v-26" />
@@ -123,10 +110,10 @@ function ContactScene() {
           <circle cx="120" cy="120" r="31" strokeDasharray="2 5" />
         </svg>
         <span className="contact-terminal__point" data-contact-terminal />
-        <span className="contact-terminal__label">07 / Signal endpoint</span>
+        <span className="contact-terminal__label">{publishedNotes.length > 0 ? "06" : "05"} / Signal endpoint</span>
       </div>
       <div className="exhibit-container closing-inner contact-content">
-        <p className="closing-kicker"><b>07</b> / Contact</p>
+        <p className="closing-kicker"><b>{publishedNotes.length > 0 ? "06" : "05"}</b> / Contact</p>
         <h2 id="contact-heading">Have something worth building?</h2>
         <p>Let’s turn a complex idea into a thoughtful digital product.</p>
         <ul className="contact-links" aria-label="Contact channels">
@@ -147,7 +134,7 @@ export function Finale() {
     <>
       <EngineeringToolbox />
       <ExperienceAbout />
-      <EngineeringNotes />
+      {publishedNotes.length > 0 && <EngineeringNotes />}
       <ContactScene />
       <FinaleMotion />
     </>

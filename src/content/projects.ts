@@ -20,7 +20,7 @@ export type Project = {
   decisions: string;
   outcome: string;
   sources: readonly Source[];
-  visual: { kind: "demo" | "screenshot"; description: string; source?: Source };
+  visual: { kind: "diagram" | "screenshot"; description: string; source?: Source };
 };
 
 function repository(name: string, revision: string) {
@@ -64,7 +64,7 @@ export const projects: readonly Project[] = [
       pgc.source("Class route access checks", "server/routes/classes.js"),
       pgc.source("Student workflow endpoints", "server/routes/students.js"),
     ],
-    visual: { kind: "demo", description: "Admissions stages and role views, illustrated with synthetic records." },
+    visual: { kind: "diagram", description: "Enquiry stages and the React, Express, and MongoDB request flow." },
   },
   {
     slug: "resumeiq",
@@ -88,7 +88,7 @@ export const projects: readonly Project[] = [
       resume.source("Language-model adapters", "backend/llm_feedback.py"),
       resume.source("PDF renderer", "backend/pdf_generator.py"),
     ],
-    visual: { kind: "demo", description: "A synthetic resume and job-description comparison illustrating the scoring signals." },
+    visual: { kind: "diagram", description: "Text extraction and BGE scoring, with PDF export handled separately." },
   },
   {
     slug: "ledger",
@@ -112,7 +112,7 @@ export const projects: readonly Project[] = [
       ledger.source("Workspace history storage", "src/storage.ts"),
       ledger.source("Code and output diff panel", "src/runDiffPanel.ts"),
     ],
-    visual: { kind: "demo", description: "Two synthetic runs illustrating code snapshots and output comparison." },
+    visual: { kind: "diagram", description: "Terminal capture, workspace history, SHA-256 snapshots, and separate source and stdout diffs." },
   },
   {
     slug: "folio",
@@ -135,7 +135,7 @@ export const projects: readonly Project[] = [
       folio.source("Local answering and page references", "src/answer.py"),
       folio.source("Source quote verification", "src/verify.py"),
     ],
-    visual: { kind: "demo", description: "An illustrative answer linked to an exact passage from an original sample document." },
+    visual: { kind: "diagram", description: "Page-aware FAISS retrieval, local answering, and quote verification." },
   },
   {
     slug: "nudge",
@@ -165,10 +165,3 @@ export const projects: readonly Project[] = [
     },
   },
 ];
-
-export const clientProject = {
-  name: "Client Job Portal",
-  category: "ServiceM8-integrated recruitment platform",
-  focus: "ServiceM8 integration, OAuth, and role-based recruitment workflows",
-  status: "Public case study pending",
-} as const;

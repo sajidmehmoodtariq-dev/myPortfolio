@@ -14,9 +14,9 @@ Labels baked into the renders describe the concept. Later exhibits require appro
 
 ## Selected Work
 
-The PGC-DHA, ResumeIQ, Ledger, and Folio scenes are HTML/CSS demonstrations with synthetic inputs. The public trees reviewed did not include usable product screenshots for these four projects. ResumeIQ's repository hero PNG is a decorative illustration. The demonstrations have distinct captions and no client records.
+The PGC-DHA, ResumeIQ, Ledger, and Folio scenes are HTML/CSS diagrams of source-verified implementation flows. The public trees reviewed did not include usable product screenshots for these four projects. ResumeIQ's repository hero PNG is a decorative illustration.
 
-`public/work/nudge-notification.jpg` is the original 1080 × 2400 Android notification screenshot from Nudge's public repository. The Nudge case study links the [pinned source image](https://github.com/sajidmehmoodtariq-dev/Nudge/blob/7fc459413a355a97f5c296c37a153f00db92f9bb/src/assets/screenshots/notification.jpg). Next Image serves responsive derivatives. The Client Job Portal is listed with public clearance pending.
+`public/work/nudge-notification.jpg` is the original 1080 × 2400 Android notification screenshot from Nudge's public repository. The Nudge case study links the [pinned source image](https://github.com/sajidmehmoodtariq-dev/Nudge/blob/7fc459413a355a97f5c296c37a153f00db92f9bb/src/assets/screenshots/notification.jpg). Next Image serves responsive derivatives. The Client Job Portal remains in the content inventory pending clearance.
 
 ## Inside the System
 
@@ -30,7 +30,7 @@ The PGC-DHA, ResumeIQ, Ledger, and Folio scenes are HTML/CSS demonstrations with
 
 The short-keyframe encode preserves the supplied composition, lighting, orange orbit, and baked leader animation. Reconstructing in Three.js would allow independent layer controls and camera changes. The supplied images and video leave geometry, materials, and lighting underspecified, and a reconstruction would add asset authoring and runtime costs. A frame sequence would give deterministic random access while adding image requests and decoded frame memory. The single video plus a poster keeps the asset path smaller and simpler.
 
-One source attaches within 80% of a viewport of the figure with motion enabled. Seeking is quantized to source frames, coalesced on the next animation frame, and waits for each in-flight seek. Slow downloads or decoding can delay the first moving frame. The opening frame displays during load, the video retains its latest decoded frame during seeking, and the settled poster is shown on failure or with reduced motion. A desktop failure leaves the preallocated sticky chapter in place to avoid reflow. The compact video preserves the full frame so the baked labels stay within the concept render. The PGC-DHA disclosures supply the readable architecture text separately. The supplied `end.jpg` remains a composition reference.
+On the case-study index, a video source attaches after the visitor scrolls the figure into view. Seeking is quantized to source frames, coalesced on the next animation frame, and waits for each in-flight seek. The opening frame displays during load and on failure. The video retains its latest decoded frame during seeking. A desktop failure leaves the preallocated sticky chapter in place to avoid reflow. The compact video preserves the full frame so the baked labels stay within the concept render. The PGC-DHA disclosures supply the readable architecture text separately. The supplied `end.jpg` remains a composition reference.
 
 ## Closing chapters
 

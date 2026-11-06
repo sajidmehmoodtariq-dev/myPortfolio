@@ -85,13 +85,13 @@ function prepareVideo(video: HTMLVideoElement, frame: HTMLElement, source: strin
   }
 
   const observer = new IntersectionObserver((entries) => {
-    if (!entries.some((entry) => entry.isIntersecting)) return;
+    if (!entries.some((entry) => entry.intersectionRatio >= 0.12)) return;
     observer.disconnect();
     attached = true;
     frame.dataset.videoState = "loading";
     video.preload = "auto";
     video.src = source;
-  }, { rootMargin: "80% 0px" });
+  }, { rootMargin: "0px 0px -18% 0px", threshold: 0.12 });
   observer.observe(frame);
 
   return {
@@ -133,8 +133,13 @@ export function ScrollDrivenVideo({
     if (!frame || !video || !("IntersectionObserver" in window) ||
       !video.canPlayType('video/mp4; codecs="avc1.4D401F"')) return;
 
-    media.add({ wide: wideScene, compact: `not all and ${wideScene}` }, (context) => {
+    media.add({
+      all: "all",
+      wide: wideScene,
+      pinned: `${wideScene} and (prefers-reduced-motion: no-preference)`,
+    }, (context) => {
       const wide = Boolean(context.conditions?.wide);
+      const pinned = Boolean(context.conditions?.pinned);
       const scrubber = prepareVideo(video, frame, wide ? desktopSrc : compactSrc, fps);
       const sticky = scene.querySelector("[data-scroll-video-sticky]");
       const fitsCompactDwell = () => frame.offsetHeight < window.innerHeight * 0.52;
@@ -143,22 +148,22 @@ export function ScrollDrivenVideo({
         defaults: { ease: "none" },
         onUpdate: () => scrubber.update(playhead.progress),
         scrollTrigger: {
-          trigger: wide ? scene : frame,
-          start: wide
+          trigger: pinned ? scene : frame,
+          start: pinned
             ? () => `top top+=${sticky ? getComputedStyle(sticky).top : "0px"}`
-            : () => fitsCompactDwell() ? "bottom 98%" : "top 72%",
-          end: wide ? "bottom bottom" : () => fitsCompactDwell() ? "top 16%" : "bottom 28%",
-          scrub: true,
+            : () => fitsCompactDwell() ? "bottom 82%" : "top 56%",
+          end: pinned ? "bottom bottom" : () => fitsCompactDwell() ? "top 16%" : "bottom 28%",
+          scrub: pinned ? 0.14 : true,
         },
       });
-      timeline.to(playhead, { progress: 1, duration: wide ? 0.8 : 0.9 })
-        .to({}, { duration: wide ? 0.2 : 0.1 });
+      timeline.to(playhead, { progress: 1, duration: pinned ? 0.8 : 0.9 })
+        .to({}, { duration: pinned ? 0.2 : 0.1 });
       scrubber.update(playhead.progress);
 
       return scrubber.dispose;
     });
   }, [desktopSrc, compactSrc, fps]);
-  const marker = useSceneMotion(sceneSelector, setup, "[data-scroll-video]");
+  const marker = useSceneMotion(sceneSelector, setup, "[data-scroll-video]", true);
 
   return (
     <div className="scroll-driven-video" data-scroll-video>

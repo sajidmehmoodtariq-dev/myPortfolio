@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteHeader } from "@/components/site-header";
+import { breadcrumbs, portfolioPerson, StructuredData } from "@/components/structured-data";
+import { publishedNotes } from "@/content/notes";
 import { ProjectTools } from "@/components/work/project-links";
 import { ProjectVisual } from "@/components/work/project-visual";
 import { projects } from "@/content/projects";
-import { pageMetadata, siteName } from "@/lib/site-metadata";
+import { pageMetadata, publicUrl } from "@/lib/site-metadata";
 import "@/components/work/work.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -31,9 +33,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) notFound();
 
   return pageMetadata({
-    title: `${project.name} | ${siteName}`,
+    title: `${project.name} Case Study | Sajid Mehmood Tariq`,
     description: project.summary,
     path: `/work/${project.slug}`,
+    imagePath: `/social/card/${project.slug}`,
+    imageAlt: `${project.name} case study by Sajid Mehmood Tariq`,
   });
 }
 
@@ -46,12 +50,23 @@ export default async function CaseStudy({ params }: Props) {
 
   return (
     <>
-      <SiteHeader onHomepage={false} />
+      <StructuredData entries={[
+        breadcrumbs([{ name: "Home", path: "/" }, { name: "Case studies", path: "/work" }, { name: project.name, path: `/work/${project.slug}` }]),
+        {
+          "@type": "Article",
+          headline: `${project.name} Case Study`,
+          description: project.summary,
+          mainEntityOfPage: publicUrl(`/work/${project.slug}`),
+          image: publicUrl(`/social/card/${project.slug}`),
+          author: portfolioPerson(),
+        },
+      ]} />
+      <SiteHeader onHomepage={false} showNotes={publishedNotes.length > 0} />
       <main id="main-content" tabIndex={-1} className="case-study">
         <article aria-labelledby="case-title">
           <header className="case-hero">
             <div className="exhibit-container">
-              <Link className="case-back" href="/#work">← Selected work</Link>
+              <Link className="case-back" href="/work">← All case studies</Link>
               <div className="case-heading">
                 <p className="work-kicker"><b>A / 0{index + 1}</b> / {project.category}</p>
                 <h1 id="case-title">{project.name}</h1>

@@ -3,7 +3,7 @@ import { portfolioIdentity } from "./portfolio";
 type Capability = {
   title: string;
   focus: string;
-  examples: readonly { tools: readonly string[]; label: string; href?: string }[];
+  examples: readonly { tools: readonly string[]; label: string; href: string }[];
 };
 
 export const toolbox: readonly Capability[] = [
@@ -13,14 +13,13 @@ export const toolbox: readonly Capability[] = [
     examples: [
       { tools: ["React", "JavaScript", "Tailwind"], label: "PGC-DHA", href: "/work/pgc-dha" },
       { tools: ["Next.js", "TypeScript", "GSAP"], label: "This exhibit", href: "#intro" },
-      { tools: ["Three.js"], label: "Project example pending" },
     ],
   },
   {
     title: "Backend",
     focus: "APIs & application boundaries",
     examples: [
-      { tools: ["Node.js", "Express", "REST APIs", "Authentication"], label: "PGC-DHA architecture", href: "#system-layers" },
+      { tools: ["Node.js", "Express", "REST APIs", "Authentication"], label: "PGC-DHA architecture", href: "/work#system-layers" },
       { tools: ["Python", "FastAPI"], label: "ResumeIQ", href: "/work/resumeiq" },
     ],
   },
@@ -30,7 +29,6 @@ export const toolbox: readonly Capability[] = [
     examples: [
       { tools: ["MongoDB", "Vercel"], label: "PGC-DHA", href: "/work/pgc-dha" },
       { tools: ["SQL"], label: "Nudge / SQLite", href: "/work/nudge" },
-      { tools: ["Redis", "Linux"], label: "Project examples pending" },
     ],
   },
   {

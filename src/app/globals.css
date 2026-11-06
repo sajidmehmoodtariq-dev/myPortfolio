@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 @theme {
   --color-canvas: #0b1310;
@@ -54,6 +55,47 @@ body {
 #main-content,
 main > section {
   scroll-margin-top: var(--header-height);
+}
+
+.portfolio-main {
+  position: relative;
+  isolation: isolate;
+}
+
+.page-trajectory {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.page-trajectory path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-dasharray: 1 2;
+  stroke-opacity: 0.57;
+}
+
+.page-trajectory--marker {
+  z-index: 2;
+}
+
+.page-trajectory__tip {
+  fill: var(--color-accent);
+  opacity: 0;
+}
+
+.portfolio-main :is(.work-intro, .toolbox, .notes-chapter, .contact-scene)::before,
+.portfolio-main .contact-scene::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  content: "";
 }
 
 .site-header {

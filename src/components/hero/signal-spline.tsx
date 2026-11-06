@@ -1,7 +1,7 @@
 type SignalSplineProps = {
   desktop: string;
   mobile: string;
-  layer: "rear" | "front" | "handoff";
+  layer: "front" | "handoff";
   motion?: "entrance" | "scroll";
 };
 

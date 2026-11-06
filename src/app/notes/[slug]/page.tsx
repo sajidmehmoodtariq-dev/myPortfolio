@@ -5,8 +5,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import { SiteHeader } from "@/components/site-header";
+import { portfolioPerson, StructuredData } from "@/components/structured-data";
 import { formatNoteDate, publishedNotes } from "@/content/notes";
-import { pageMetadata } from "@/lib/site-metadata";
+import { pageMetadata, publicUrl } from "@/lib/site-metadata";
 import "./note.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -39,7 +40,15 @@ export default async function NotePage({ params }: Props) {
 
   return (
     <>
-      <SiteHeader onHomepage={false} />
+      <StructuredData entries={[{
+        "@type": "BlogPosting",
+        headline: note.title,
+        description: note.summary,
+        datePublished: note.publishedOn,
+        mainEntityOfPage: publicUrl(`/notes/${note.slug}`),
+        author: portfolioPerson(),
+      }]} />
+      <SiteHeader onHomepage={false} showNotes />
       <main id="main-content" tabIndex={-1} className="note-page exhibit-container">
         <Link className="note-page__back" href="/#notes">← Engineering notes</Link>
         <article>

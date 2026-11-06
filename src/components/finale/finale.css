@@ -1,35 +1,11 @@
 .closing-chapter {
-  --closing-stroke: 1.15;
   position: relative;
-  isolation: isolate;
-  background: var(--color-canvas);
   box-shadow: inset 0 1px var(--color-border);
 }
 
 .closing-inner {
   position: relative;
   z-index: 1;
-}
-
-.closing-signal {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  opacity: 0.88;
-  pointer-events: none;
-}
-
-.closing-signal path {
-  fill: none;
-  stroke: var(--color-accent);
-  stroke-width: var(--closing-stroke);
-  stroke-dasharray: 1 2;
-}
-
-.closing-signal__compact {
-  display: none;
 }
 
 .closing-kicker,
@@ -86,7 +62,7 @@
   border-color: var(--color-accent);
 }
 
-.toolbox {
+.toolbox::before {
   background:
     radial-gradient(ellipse at 75% 0%, #22392c73, transparent 62%),
     var(--color-canvas);
@@ -157,8 +133,7 @@
   border-top: 1px solid var(--color-border);
 }
 
-.toolbox-examples a,
-.toolbox-pending {
+.toolbox-examples a {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -281,7 +256,7 @@
   text-underline-offset: 0.2em;
 }
 
-.notes-chapter {
+.notes-chapter::before {
   background:
     radial-gradient(ellipse at 15% 70%, #25392d56, transparent 58%),
     var(--color-canvas);
@@ -295,20 +270,11 @@
   margin-block-start: 1rem;
 }
 
-.notes-empty,
 .note-index {
   align-self: center;
   min-width: 0;
   padding-block: 1.25rem;
   border-block: 1px solid var(--color-border);
-}
-
-.notes-empty__title {
-  margin-block: 0.4rem 0.95rem;
-  font-size: clamp(1.45rem, 3.35vw, 2.7rem);
-  font-weight: 600;
-  letter-spacing: -0.05em;
-  line-height: 1.08;
 }
 
 .note-index li + li {
@@ -333,12 +299,15 @@
   display: grid;
   grid-template-rows: 1fr auto;
   min-block-size: calc(100svh - var(--header-height));
+}
+
+.contact-scene::before {
   background:
     radial-gradient(ellipse at 78% 49%, #29453785, transparent 48%),
     var(--color-canvas);
 }
 
-.contact-scene::before {
+.contact-scene::after {
   position: absolute;
   inset: 0;
   background-image:
@@ -396,6 +365,7 @@
 
 .contact-terminal {
   position: absolute;
+  z-index: 1;
   top: 50%;
   left: 79.2%;
   width: min(20vw, 16rem);
@@ -436,9 +406,6 @@
 }
 
 @media (width < 64rem) {
-  .closing-chapter { --closing-stroke: 2; }
-  .closing-signal__wide { display: none; }
-  .closing-signal__compact { display: initial; }
 
   .contact-scene h2 {
     max-inline-size: 14ch;
@@ -473,8 +440,7 @@
     padding-block-start: 0.5rem;
   }
 
-  .toolbox-examples a,
-  .toolbox-pending {
+  .toolbox-examples a {
     justify-content: flex-start;
   }
 

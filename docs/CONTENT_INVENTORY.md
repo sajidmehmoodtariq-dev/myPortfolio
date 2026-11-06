@@ -9,9 +9,9 @@
 | Ledger | VS Code terminal integration, snapshot hashing, bounded workspace storage, and code and output diff views | Contribution scope, distribution, adoption or usage outcomes, and approved extension screenshots |
 | Folio | Page extraction and retrieval flow, FAISS indexing, local answering, and source quote matching | Contribution scope, supported document coverage, citation and answer accuracy, and approved demo media |
 | Nudge | App input and navigation, SQLite reminder lifecycle, Notifee triggers, and the public Android reminder screenshot | Contribution scope, store release, device coverage, and notification reliability |
-| Client Job Portal | Owner brief identifies the ServiceM8 recruitment project and its technical focus | Clearance for public discussion, scope and role, redacted OAuth and role-flow evidence, approved imagery, and any outcome. The public listing stays at the owner-supplied summary until confirmed. |
+| Client Job Portal | Owner brief identifies the ServiceM8 recruitment project and its technical focus | Clearance for public discussion, scope and role, redacted OAuth and role-flow evidence, approved imagery, and any outcome. The project is held from the public listing until confirmed. |
 
-Keep client identities, credentials, and student records out of published content. The four featured visuals use synthetic examples labeled as illustrative demos. An implementation finding may describe what the code does. Any deployment, performance, adoption, or business outcome needs its own verifiable source. Publish notes when the author and final text are supplied.
+Keep client identities, credentials, and student records out of published content. Four featured visuals illustrate verified implementation flows. Nudge uses its repository screenshot. An implementation finding may describe what the code does. Any deployment, performance, adoption, or business outcome needs its own verifiable source. The notes index appears when approved articles are registered.
 
 ## Closing chapters
 

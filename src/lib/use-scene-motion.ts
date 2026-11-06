@@ -16,7 +16,7 @@ function loadMotion() {
   );
 }
 
-export function useSceneMotion(selector: string, setup: SceneSetup, near?: string) {
+export function useSceneMotion(selector: string, setup: SceneSetup, near?: string, keepWithReducedMotion = false) {
   const marker = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ export function useSceneMotion(selector: string, setup: SceneSetup, near?: strin
     if (!root) return;
 
     const preference = window.matchMedia("(prefers-reduced-motion: no-preference)");
+    const allowsMotion = () => keepWithReducedMotion || preference.matches;
     let nearby = !near || !("IntersectionObserver" in window);
     let loading = false;
     let disposed = false;
@@ -31,7 +32,7 @@ export function useSceneMotion(selector: string, setup: SceneSetup, near?: strin
     let observer: IntersectionObserver | undefined;
 
     function sync() {
-      if (!preference.matches) {
+      if (!allowsMotion()) {
         revert?.();
         revert = undefined;
         return;
@@ -41,7 +42,7 @@ export function useSceneMotion(selector: string, setup: SceneSetup, near?: strin
       loading = true;
       loadMotion().then((gsap) => {
         loading = false;
-        if (disposed || !preference.matches) return;
+        if (disposed || !allowsMotion()) return;
         const media = gsap.matchMedia(root);
         revert = () => media.revert();
         setup(root, gsap, media);
@@ -72,7 +73,7 @@ export function useSceneMotion(selector: string, setup: SceneSetup, near?: strin
       preference.removeEventListener("change", sync);
       revert?.();
     };
-  }, [selector, setup, near]);
+  }, [selector, setup, near, keepWithReducedMotion]);
 
   return marker;
 }

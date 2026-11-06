@@ -18,10 +18,10 @@ function Admissions() {
             ))}
           </ol>
           <div className="admission-records">
-            <div><span>Example enquiry</span><span>Current status</span></div>
-            <div><code>ENQ-014</code><span>Returned</span></div>
-            <div><code>ENQ-021</code><span>Fee submitted</span></div>
-            <div><code>ENQ-032</code><span>Admitted</span></div>
+            <div><span>Enquiry request</span><span>Responsibility</span></div>
+            <div><code>React</code><span>Render enquiry and report views</span></div>
+            <div><code>Express</code><span>Validate the session</span></div>
+            <div><code>MongoDB</code><span>Aggregate filtered records</span></div>
           </div>
         </div>
       </div>
@@ -39,14 +39,14 @@ function Resume() {
       <div className="screen-bar"><span>ResumeIQ</span><span>Match analysis</span></div>
       <div className="resume-panes">
         <div className="resume-input">
-          <p className="screen-label">01 / Resume excerpt</p>
-          <p className="screen-title">API developer</p>
-          <p>Built REST endpoints and wrote integration tests for a Python service.</p>
+          <p className="screen-label">01 / Text extraction</p>
+          <p className="screen-title">Resume + job text</p>
+          <p>Read the uploaded PDF or pasted resume text and the supplied job description.</p>
         </div>
         <div className="resume-input">
-          <p className="screen-label">02 / Job excerpt</p>
-          <p className="screen-title">Backend engineer</p>
-          <p>Develop Python APIs and maintain automated tests for service integrations.</p>
+          <p className="screen-label">02 / Semantic scoring</p>
+          <p className="screen-title">FastEmbed + BGE</p>
+          <p>Embed both inputs and compare them with cosine similarity. PDF export runs separately.</p>
         </div>
       </div>
       <div className="resume-signals">
@@ -65,14 +65,14 @@ function Ledger() {
         <div className="ledger-body">
           <div className="ledger-history">
             <p className="screen-label">Workspace history</p>
-            <span>Run B / Exit 0</span><span>Run A / Exit 0</span>
+            <span>Terminal command</span><span>Output + exit status</span>
           </div>
           <div className="ledger-diff">
-            <p className="screen-label">Code snapshot / parse.js</p>
-            <code className="diff-old">− return line;</code>
-            <code className="diff-new">+ return line.trim();</code>
-            <p className="screen-label">Stdout / A → B</p>
-            <code>“ sample ” → “sample”</code>
+            <p className="screen-label">Snapshot / SHA-256</p>
+            <code>Normalized file text</code>
+            <p className="screen-label">Run comparison</p>
+            <code className="diff-old">Source changes</code>
+            <code className="diff-new">Stdout changes</code>
           </div>
         </div>
       </div>
@@ -86,32 +86,32 @@ function Folio() {
       <div className="screen-bar"><span>Folio</span><span>Local PDF pipeline</span></div>
       <div className="folio-panes">
         <div className="folio-paper">
-          <p className="screen-label">Sample manual / P. 12</p>
-          <p className="screen-title">Export settings</p>
-          <p><mark>The export keeps the source page numbers.</mark></p>
+          <p className="screen-label">01 / Retrieval</p>
+          <p className="screen-title">PDF pages</p>
+          <p><mark>FAISS retrieves passages with their original page numbers.</mark></p>
         </div>
         <div className="folio-answer">
-          <p className="screen-label">Question</p>
-          <p>What happens to page numbers during export?</p>
-          <p className="screen-label">Answer / Page 12</p>
-          <p>Export preserves the original page numbering.</p>
+          <p className="screen-label">02 / Local answer</p>
+          <p>llama.cpp answers using the retrieved passages.</p>
+          <p className="screen-label">03 / Quote check</p>
+          <p>Compare the proposed quote with source text and return its page.</p>
         </div>
       </div>
     </div>
   );
 }
 
-const demos = { "pgc-dha": Admissions, resumeiq: Resume, ledger: Ledger, folio: Folio };
+const diagrams = { "pgc-dha": Admissions, resumeiq: Resume, ledger: Ledger, folio: Folio };
 
-export function ProjectVisual({ project, animate = false }: { project: Project; animate?: boolean }) {
-  const Demo = project.slug === "nudge" ? null : demos[project.slug];
+export function ProjectVisual({ project }: { project: Project }) {
+  const Diagram = project.slug === "nudge" ? null : diagrams[project.slug];
 
   return (
-    <figure className="project-visual" data-work-visual={animate ? "" : undefined}>
-      <div className={`project-visual__stage project-visual__stage--${project.slug}`} data-work-mask>
-        <span className="project-visual__registration" aria-hidden="true">{Demo ? "DEMO" : "FIG"} / {project.name}</span>
-        <div className="project-visual__rig" data-work-rig aria-hidden={Demo ? true : undefined}>
-          {Demo ? <Demo /> : (
+    <figure className="project-visual">
+      <div className={`project-visual__stage project-visual__stage--${project.slug}`}>
+        <span className="project-visual__registration" aria-hidden="true">{Diagram ? "FLOW" : "FIG"} / {project.name}</span>
+        <div className="project-visual__rig" aria-hidden={Diagram ? true : undefined}>
+          {Diagram ? <Diagram /> : (
             <Image
               src="/work/nudge-notification.jpg"
               alt="Nudge Android reminder showing the scheduled time and snooze and dismiss controls"
@@ -124,7 +124,7 @@ export function ProjectVisual({ project, animate = false }: { project: Project; 
         </div>
       </div>
       <figcaption>
-        <strong>{project.visual.kind === "demo" ? "Illustrative demo" : "Repository screenshot"}</strong>
+        <strong>{project.visual.kind === "diagram" ? "Implementation diagram" : "Repository screenshot"}</strong>
         <span>{project.visual.description}</span>
         {project.visual.source && <a href={project.visual.source.href}>Original image ↗</a>}
       </figcaption>
