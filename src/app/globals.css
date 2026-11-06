@@ -17,6 +17,7 @@
 
 :root {
   color-scheme: dark;
+  --header-height: 4.25rem;
   --page-gutter: clamp(1.25rem, 4vw, 3rem);
   --content-width: 76rem;
   --section-space: clamp(3rem, 8vw, 7rem);
@@ -36,15 +37,14 @@ body {
 
 .skip-link {
   position: fixed;
-  z-index: 10;
+  z-index: 20;
   inset: 1rem auto auto var(--page-gutter);
-  transform: translateY(calc(-100% - 2rem));
   background: var(--color-surface);
   padding: 0.5rem 1rem;
 }
 
-.skip-link:focus {
-  transform: none;
+.skip-link:not(:focus) {
+  clip-path: inset(50%);
 }
 
 .exhibit-container {
@@ -60,7 +60,7 @@ body {
   border-block-start: 1px solid var(--color-border);
 }
 
-.exhibit-section :is(h1, h2) {
+.exhibit-section h2 {
   font-size: clamp(1.75rem, 5vw, 3.5rem);
   font-weight: 600;
   letter-spacing: -0.035em;
@@ -75,4 +75,178 @@ body {
   font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
+}
+
+main > section {
+  scroll-margin-top: var(--header-height);
+}
+
+.site-header {
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  border-bottom: 1px solid var(--color-border);
+  background: #0b1310f7;
+}
+
+.header-inner {
+  position: relative;
+  display: flex;
+  min-block-size: calc(var(--header-height) - 1px);
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.site-brand {
+  display: inline-flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  gap: 0.95rem;
+}
+
+.brand-mark {
+  font-size: 1.48rem;
+  font-weight: 700;
+  letter-spacing: -0.09em;
+  line-height: 1;
+}
+
+.brand-mark span {
+  color: var(--color-accent);
+}
+
+.brand-caption {
+  padding-inline-start: 0.95rem;
+  border-inline-start: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.desktop-nav a,
+.mobile-nav nav a {
+  display: flex;
+  min-block-size: 2.75rem;
+  align-items: center;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  transition: color 160ms;
+}
+
+.desktop-nav a:hover,
+.mobile-nav nav a:hover {
+  color: var(--color-accent);
+}
+
+.mobile-nav {
+  display: none;
+}
+
+@media (max-width: 47.99rem) {
+  :root {
+    --header-height: 3.8rem;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+
+  .mobile-nav summary {
+    display: flex;
+    min-block-size: 2.75rem;
+    align-items: center;
+    gap: 0.55rem;
+    padding-inline: 0.35rem;
+    color: var(--color-ink);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    list-style: none;
+  }
+
+  .mobile-nav summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .menu-glyph {
+    position: relative;
+    width: 0.95rem;
+    height: 0.7rem;
+  }
+
+  .menu-glyph::before,
+  .menu-glyph::after {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-accent);
+    content: "";
+    transition: transform 180ms;
+  }
+
+  .menu-glyph::before { top: 2px; }
+  .menu-glyph::after { bottom: 2px; }
+  .mobile-nav[open] .menu-glyph::before { transform: translateY(3px) rotate(45deg); }
+  .mobile-nav[open] .menu-glyph::after { transform: translateY(-3px) rotate(-45deg); }
+
+  .mobile-nav nav {
+    position: absolute;
+    inset: calc(100% + 1px) 0 auto;
+    display: grid;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    box-shadow: 0 0.75rem 2rem #0008;
+  }
+
+  .mobile-nav nav a {
+    min-block-size: 3rem;
+    gap: 0.8rem;
+    color: var(--color-ink);
+  }
+
+  .mobile-nav nav a + a {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .mobile-nav nav a span {
+    color: var(--color-accent);
+    font: 0.64rem var(--font-mono);
+  }
+
+  .mobile-nav::details-content {
+    opacity: 0;
+    transition: opacity 170ms ease, content-visibility 170ms allow-discrete;
+  }
+
+  .mobile-nav[open]::details-content {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-nav::details-content,
+  .menu-glyph::before,
+  .menu-glyph::after,
+  .desktop-nav a,
+  .mobile-nav nav a,
+  .hero-actions a {
+    transition: none;
+  }
 }

@@ -1,6 +1,6 @@
 # Asset manifest
 
-The supplied files are in `assets/`. Keep these source files outside the public runtime asset directory. Prompt 01 does not request them from the page.
+The supplied files are in `assets/`. Keep these source files outside the public runtime asset directory. The hero uses a separate, original CSS 3D assembly with an inline SVG schematic, based on the reference's layered silhouette and callout treatment. The same rendered geometry provides the settled fallback.
 
 | Source | Inspection | Planned use |
 | --- | --- | --- |
@@ -10,4 +10,4 @@ The supplied files are in `assets/`. Keep these source files outside the public 
 
 No `references/` directory, separately identified original portfolio video, or five secondary inspiration recordings were found. The first video frame differs from `start.jpg`. Treat the still as a composition reference rather than assuming it is a literal video frame.
 
-For the hero, compare a responsive poster and optimized clip against a reconstruction before committing to a delivery format. Use actual geometry when spatial controls need it. Keep accessible annotation text separate from the scene. Labels baked into supplied renders describe the concept and do not substantiate technical claims. Later exhibits require approved project screenshots or a sanitized recreation tied to verified features. Record dimensions, derivatives, ownership, and fallback for each published asset.
+The supplied clip remains available for the Inside the System exhibit. When publishing reference-derived media there, compare an optimized clip with a responsive poster and keep accessible annotation text separate from the scene. Labels baked into the renders describe the concept and do not substantiate technical claims. Later exhibits require approved project screenshots or a sanitized recreation tied to verified features. Record dimensions, derivatives, ownership, and fallback for each published asset.

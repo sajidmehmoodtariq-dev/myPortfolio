@@ -13,16 +13,15 @@ export function ExhibitSection({
   number,
   children,
 }: ExhibitSectionProps) {
-  const Heading = number === 1 ? "h1" : "h2";
   const headingId = `${id}-heading`;
 
   return (
-    <section id={id} aria-labelledby={headingId} className="exhibit-section">
+    <section id={id} aria-labelledby={headingId} className="exhibit-section" tabIndex={-1}>
       <div className="exhibit-container">
         <span aria-hidden="true" className="exhibit-index">
           {String(number).padStart(2, "0")}
         </span>
-        <Heading id={headingId}>{title}</Heading>
+        <h2 id={headingId}>{title}</h2>
         {children}
       </div>
     </section>

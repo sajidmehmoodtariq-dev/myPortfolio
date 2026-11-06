@@ -1,0 +1,604 @@
+.hero,
+.hero + .exhibit-section {
+  --signal-stroke: 1.15;
+  --signal-terminal: 81.8%;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-content: center;
+  min-block-size: calc(100svh - var(--header-height));
+  background: var(--color-canvas);
+}
+
+.hero-field {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 72% 45%, #23392b88, transparent 54%),
+    radial-gradient(ellipse at 30% 5%, #202d2555, transparent 46%),
+    var(--color-canvas);
+}
+
+.hero-field::after {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, #94a69b15 1px, transparent 1px),
+    linear-gradient(to bottom, #94a69b15 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: linear-gradient(180deg, #000 0%, #0008 68%, transparent 98%);
+  content: "";
+}
+
+.hero-inner,
+.hero-register,
+.header-inner {
+  --content-width: 84rem;
+}
+
+.hero-inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, 1fr);
+  align-items: center;
+  padding-block: 3rem 5.25rem;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 3;
+  padding-block: 0.75rem;
+}
+
+.hero-eyebrow,
+.hero-register,
+.assembly-frame,
+.assembly-label,
+.display-header,
+.display-footer,
+.assembly-face--pane,
+.assembly-face--back {
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.085em;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-block-end: 1.65rem;
+  font-size: clamp(0.68rem, 1vw, 0.76rem);
+}
+
+.hero-eyebrow > span,
+.assembly-caption > i,
+.hero-register i {
+  display: inline-block;
+  flex: none;
+  width: 0.38rem;
+  height: 0.38rem;
+  background: var(--color-accent);
+}
+
+.hero h1 {
+  width: fit-content;
+  font-size: clamp(3rem, 5.2vw, 4.75rem);
+  font-weight: 600;
+  line-height: 0.99;
+  letter-spacing: -0.06em;
+  text-wrap: balance;
+}
+
+.hero h1 span {
+  display: block;
+}
+
+.hero h1 span:last-child {
+  color: #b0bdb2;
+}
+
+.hero-description {
+  max-inline-size: 35ch;
+  margin-block-start: 1.6rem;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.4vw, 1.16rem);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-block-start: 1.9rem;
+}
+
+.hero-actions a {
+  display: inline-flex;
+  min-block-size: 3rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  padding-inline: 1rem;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 160ms, border-color 160ms, color 160ms;
+}
+
+.hero-actions .hero-primary {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-canvas);
+}
+
+.hero-primary:hover {
+  background: #f1a579;
+}
+
+.hero-actions .hero-secondary {
+  border-color: #94a69b59;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+.hero-actions .hero-secondary:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.hero-actions svg {
+  width: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+
+.hero-register {
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  min-block-size: 3.1rem;
+  border-top: 1px solid var(--color-border);
+  font-size: 0.65rem;
+}
+
+.hero-register span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.hero-register i {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+.signal-spline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.signal-spline path {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: var(--signal-stroke);
+  stroke-dasharray: 1 2;
+}
+
+.signal-spline--rear {
+  z-index: -1;
+  opacity: 0.7;
+}
+
+.signal-spline--front,
+.signal-spline--handoff {
+  z-index: 1;
+  opacity: 0.88;
+}
+
+.signal-spline__mobile {
+  display: none;
+}
+
+.assembly-stage {
+  position: relative;
+  container-type: inline-size;
+  align-self: center;
+  aspect-ratio: 640 / 580;
+  width: 100%;
+  min-width: 0;
+  isolation: isolate;
+}
+
+.assembly-frame {
+  position: absolute;
+  inset: 6% 0;
+  border: 1px solid #94a69b24;
+  font-size: clamp(0.56rem, 1.9cqw, 0.69rem);
+}
+
+.frame-corner {
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: solid #94a69b8c;
+  border-width: 1px 0 0 1px;
+}
+
+.frame-corner--tl { inset: -1px auto auto -1px; }
+.frame-corner--tr { inset: -1px -1px auto auto; rotate: 90deg; }
+.frame-corner--bl { inset: auto auto -1px -1px; rotate: -90deg; }
+.frame-corner--br { inset: auto -1px -1px auto; rotate: 180deg; }
+
+.assembly-caption,
+.assembly-view {
+  position: absolute;
+  background: #152019;
+  padding-inline: 0.45rem;
+  white-space: nowrap;
+}
+
+.assembly-caption {
+  inset: -0.58rem auto auto 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.assembly-view {
+  inset: auto 0.95rem -0.58rem auto;
+}
+
+.assembly-stage b {
+  color: var(--color-accent);
+  font-weight: 400;
+}
+
+.assembly-leaders {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: #94a69b8c;
+  stroke-width: 0.85px;
+}
+
+.assembly-leaders path {
+  stroke-dasharray: 2 3;
+}
+
+.assembly-leaders circle {
+  stroke: var(--color-accent);
+  fill: var(--color-canvas);
+}
+
+.assembly-label {
+  position: absolute;
+  z-index: 3;
+  white-space: nowrap;
+  font-size: clamp(0.52rem, 1.5cqw, 0.65rem);
+}
+
+.assembly-label--one { inset: 23.5% auto auto 10%; }
+.assembly-label--two { inset: 60% 5% auto auto; }
+.assembly-label--three { inset: 74.5% auto auto 15.3%; }
+
+.assembly-shadow {
+  position: absolute;
+  inset: 67% 15% 10%;
+  background: radial-gradient(ellipse, #000b, transparent 67%);
+  transform: rotate(-9deg);
+}
+
+.assembly-camera {
+  position: absolute;
+  inset: 0;
+  perspective: 124cqw;
+  pointer-events: none;
+}
+
+.assembly-rig {
+  position: absolute;
+  left: 51%;
+  top: 49%;
+  width: 49%;
+  aspect-ratio: 1.32;
+  transform: translate(-50%, -50%)
+    rotateX(calc(12deg + var(--camera-x, 0deg)))
+    rotateY(calc(-30deg + var(--camera-y, 0deg)))
+    rotateZ(-5deg);
+  transform-style: preserve-3d;
+}
+
+.assembly-layer {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(var(--offset-x, 0px), var(--offset-y, 0px), calc(var(--depth, 0px) * var(--spread, 1)));
+  transform-style: preserve-3d;
+}
+
+.assembly-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid #879b8c;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 2px #fff1;
+}
+
+.assembly-layer--back {
+  --depth: -14cqw;
+  --offset-x: 4.4cqw;
+  --offset-y: -4.1cqw;
+}
+
+.assembly-face--back {
+  justify-content: space-between;
+  align-items: end;
+  padding: 1.4cqw;
+  background: linear-gradient(155deg, #45594e, #192922 72%);
+  font-size: 1.4cqw;
+}
+
+.back-grid {
+  position: absolute;
+  inset: 5%;
+  background:
+    repeating-linear-gradient(90deg, #9cab9e30 0 1px, transparent 1px 10px),
+    repeating-linear-gradient(0deg, #9cab9e30 0 1px, transparent 1px 10px);
+  mask-image: linear-gradient(#000, #0000);
+}
+
+.assembly-layer--logic {
+  --depth: -5.2cqw;
+  --offset-x: 1.8cqw;
+  --offset-y: -1.7cqw;
+}
+
+.assembly-face--logic {
+  background: linear-gradient(140deg, #66796c, #415449 50%, #202e27);
+}
+
+.logic-vents {
+  position: absolute;
+  inset: 8% 7% auto;
+  height: 9%;
+  border: 1px solid #9bac9d70;
+  background: repeating-linear-gradient(90deg, #202e27 0 3px, transparent 3px 7px);
+}
+
+.logic-traces {
+  position: absolute;
+  inset: 4% 6%;
+  width: 88%;
+  height: 92%;
+  color: #aebfb29e;
+}
+
+.assembly-layer--pane {
+  --depth: 4.7cqw;
+  --offset-x: 1.1cqw;
+  --offset-y: 0.9cqw;
+}
+
+.assembly-face--pane {
+  justify-content: space-between;
+  align-items: start;
+  padding: 1.15cqw;
+  border-color: #a2b8ab88;
+  background: linear-gradient(145deg, #a8bdb145, #283e3355 58%, #a6bfb22a);
+  font-size: 1.35cqw;
+}
+
+.assembly-layer--display {
+  --depth: 14cqw;
+  --offset-x: -3cqw;
+  --offset-y: 2.5cqw;
+}
+
+.assembly-face--display {
+  align-items: stretch;
+  padding: 7%;
+  border-color: #8fa196;
+  background: linear-gradient(150deg, #52655b, #1a2a22 40%, #283b31);
+  box-shadow: inset 0 0 0 2px #a3b6a742, inset 0 -3px 0 #050d0a;
+}
+
+.assembly-layer--display::before {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(-1cqw);
+  background: #0e1b15;
+  border: 1px solid #788d7d;
+  content: "";
+}
+
+.display-screw {
+  position: absolute;
+  width: 0.85cqw;
+  aspect-ratio: 1;
+  border: 1px solid #8a9c91;
+  border-radius: 50%;
+  background: #13221b;
+}
+
+.display-screw--tl { inset: 4% auto auto 3%; }
+.display-screw--tr { inset: 4% 3% auto auto; }
+.display-screw--bl { inset: auto auto 4% 3%; }
+.display-screw--br { inset: auto 3% 4% auto; }
+
+.display-screen {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  padding: 4%;
+  overflow: hidden;
+  border: 1px solid #718678;
+  background:
+    radial-gradient(ellipse at 52% 43%, #263b2f, transparent 69%),
+    repeating-linear-gradient(0deg, #84998a0f 0 1px, transparent 1px 7px),
+    #111e18;
+}
+
+.display-header,
+.display-footer {
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.3rem;
+  font-size: clamp(0.29rem, 1.48cqw, 0.57rem);
+  white-space: nowrap;
+}
+
+.display-header {
+  padding-block-end: 0.4em;
+  border-bottom: 1px solid #94a69b55;
+}
+
+.display-footer {
+  padding-block-start: 0.4em;
+  border-top: 1px solid #94a69b55;
+}
+
+.display-footer span:last-child,
+.schematic-signal {
+  color: var(--color-accent);
+}
+
+.assembly-schematic {
+  width: 100%;
+  height: 100%;
+  color: #a9bcb0;
+}
+
+.assembly-layer--base,
+.assembly-layer--cap {
+  inset: 50% -4% auto;
+  height: 85%;
+  border: 1px solid #a3b4a7;
+  border-radius: 2px;
+  transform: translateY(calc(-50% + var(--shelf-y) * var(--spread, 1))) rotateX(90deg);
+}
+
+.assembly-layer--base {
+  --shelf-y: 21.5cqw;
+  background: linear-gradient(150deg, #4c5e53, #263a2f 53%, #101c16);
+  box-shadow: 0 2px 0 #0c1611;
+}
+
+.assembly-layer--cap {
+  --shelf-y: -23cqw;
+  inset-inline: 9% -5%;
+  height: 63%;
+  background: linear-gradient(138deg, #b4c2b9c4, #6074699c 55%, #33493dcb);
+}
+
+.base-inlay,
+.cap-inlay {
+  position: absolute;
+  inset: 9%;
+  border: 1px solid #b4c1b66b;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 10px, #879c8b40 10px 11px),
+    repeating-linear-gradient(0deg, transparent 0 10px, #879c8b40 10px 11px);
+}
+
+.hero + .exhibit-section {
+  position: relative;
+  border-top: 1px solid var(--color-border);
+}
+
+.hero + .exhibit-section::before {
+  position: absolute;
+  inset: -1px auto auto var(--signal-terminal);
+  width: calc(var(--signal-stroke) * 0.1vw);
+  height: 1.15rem;
+  transform: translateX(-50%);
+  background: linear-gradient(var(--color-accent), transparent);
+  opacity: var(--signal-join, 0.88);
+  content: "";
+}
+
+@media (max-width: 63.99rem) {
+  .hero,
+  .hero + .exhibit-section {
+    --signal-stroke: 2;
+    --signal-terminal: 76%;
+  }
+
+  .hero-inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 3.6rem);
+    padding-block: clamp(3rem, 8vw, 5rem) 4.1rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 7.2vw, 5rem);
+  }
+
+  .assembly-stage {
+    width: min(100%, 37rem);
+    justify-self: center;
+  }
+
+  .signal-spline__desktop {
+    display: none;
+  }
+
+  .signal-spline__mobile {
+    display: initial;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .hero h1 {
+    font-size: clamp(2.45rem, 10vw, 3.8rem);
+    text-wrap: initial;
+  }
+
+  .hero h1 span {
+    display: inline;
+  }
+
+  .hero-eyebrow {
+    margin-block-end: 1.25rem;
+  }
+
+  .hero-description {
+    margin-block-start: 1.25rem;
+  }
+
+  .hero-actions {
+    margin-block-start: 1.45rem;
+  }
+
+  .assembly-leaders,
+  .assembly-label {
+    display: none;
+  }
+
+  .assembly-stage {
+    aspect-ratio: 640 / 530;
+  }
+
+  .hero-register {
+    min-block-size: 2.6rem;
+  }
+}
