@@ -33,3 +33,7 @@ The desktop source attaches within 400px of the viewport and only with motion en
 ## Closing chapters
 
 The toolbox uses annotated HTML modules with the same technical grid and surface tokens as the previous exhibits. No separate toolbox reference recording or approved portrait was supplied. About uses type and an undated timeline. The contact diagram is inline SVG and CSS, and its center is the final point of the orange spline.
+
+## Social preview
+
+`public/social/portfolio.png` is a 1200 × 630 branded card composed from the system poster, portfolio typography, and the verified identity. The card is shared across the homepage and case studies. Its absolute URL is emitted when a public origin is configured.

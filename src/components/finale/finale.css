@@ -110,6 +110,12 @@
   padding-block-end: 0.3rem;
 }
 
+@media (width >= 48rem) {
+  .closing-heading > p {
+    padding-inline-end: 1.5rem;
+  }
+}
+
 .toolbox-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

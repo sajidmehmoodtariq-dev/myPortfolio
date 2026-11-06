@@ -87,7 +87,7 @@
 .work-intro h2,
 .case-hero h1 {
   margin-block-start: 0.65rem;
-  font-size: clamp(3.25rem, 8.5vw, 8rem);
+  font-size: clamp(3.25rem, 8.5vw, 7.65rem);
   font-weight: 600;
   line-height: 0.98;
   letter-spacing: -0.075em;
@@ -98,6 +98,12 @@
   max-width: 31ch;
   color: var(--color-muted);
   font-size: clamp(1rem, 1.55vw, 1.2rem);
+}
+
+@media (width >= 48rem) {
+  .work-intro__inner > :last-child {
+    padding-inline-end: 1.5rem;
+  }
 }
 
 .work-index {
@@ -277,7 +283,7 @@
   inset: -9% -5% 12% 8%;
   border: 1px solid #94a69b68;
   background: linear-gradient(135deg, #829e8b4d, #283d3255);
-  transform: rotateY(-10deg) rotateZ(-4deg);
+  transform: translateZ(-52px) rotateY(-10deg) rotateZ(-4deg);
 }
 
 .project-screen {
@@ -496,7 +502,7 @@
   align-items: baseline;
   margin-block-start: 0.65rem;
   color: var(--color-muted);
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   line-height: 1.5;
   text-transform: none;
 }
@@ -552,6 +558,16 @@
   background:
     radial-gradient(ellipse at 82% 23%, #20372b91, transparent 65%),
     var(--color-canvas);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .case-heading {
+    animation: case-heading-enter 360ms ease-out both;
+  }
+
+  @keyframes case-heading-enter {
+    from { transform: translateY(8px); }
+  }
 }
 
 .case-back {

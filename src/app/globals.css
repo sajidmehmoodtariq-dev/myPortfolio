@@ -51,6 +51,7 @@ body {
   margin-inline: auto;
 }
 
+#main-content,
 main > section {
   scroll-margin-top: var(--header-height);
 }
@@ -183,6 +184,8 @@ main > section {
     position: absolute;
     inset: calc(100% + 1px) 0 auto;
     display: grid;
+    max-height: calc(100svh - var(--header-height) - 0.75rem);
+    overflow-y: auto;
     padding: 0.5rem 0.9rem;
     border: 1px solid var(--color-border);
     background: var(--color-surface);
@@ -211,6 +214,10 @@ main > section {
 
   .mobile-nav[open]::details-content {
     opacity: 1;
+  }
+
+  .mobile-nav:not([open]) nav {
+    pointer-events: none;
   }
 }
 

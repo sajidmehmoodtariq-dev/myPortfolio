@@ -2,12 +2,13 @@ import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { portfolioIdentity } from "@/content/portfolio";
+import { siteName, siteOrigin } from "@/lib/site-metadata";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: `${portfolioIdentity.name} | The Engineering Exhibit`,
-  description: `${portfolioIdentity.role} based in ${portfolioIdentity.location}.`,
+  applicationName: siteName,
+  metadataBase: siteOrigin,
+  robots: { index: Boolean(siteOrigin), follow: Boolean(siteOrigin) },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

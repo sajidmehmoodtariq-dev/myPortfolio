@@ -7,7 +7,7 @@ import "./system.css";
 function SystemSignal({ segment }: { segment: "scene" | "layers" }) {
   const [wide, compact] = segment === "scene"
     ? [
-        "M835 0 C835 170 966 240 966 460 S924 840 924 1000",
+        "M835 0 C835 170 978 220 978 460 C978 650 978 785 978 850 C978 925 924 935 924 1000",
         "M877 0 C877 70 971 125 971 280 S954 840 954 1000",
       ]
     : [

@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import { SiteHeader } from "@/components/site-header";
 import { formatNoteDate, publishedNotes } from "@/content/notes";
+import { pageMetadata } from "@/lib/site-metadata";
 import "./note.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -21,7 +22,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const note = publishedNotes.find((entry) => entry.slug === slug);
   if (!note) notFound();
 
-  return { title: `${note.title} | SMT Engineering Notes`, description: note.summary };
+  return pageMetadata({
+    title: `${note.title} | SMT Engineering Notes`,
+    description: note.summary,
+    path: `/notes/${note.slug}`,
+    publishedOn: note.publishedOn,
+  });
 }
 
 export default async function NotePage({ params }: Props) {

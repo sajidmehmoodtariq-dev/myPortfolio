@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useSceneMotion, type SceneSetup } from "@/lib/use-scene-motion";
 
 const videoSource = "/system/assembly.mp4";
 const frameDuration = 1 / 24;
@@ -96,81 +96,53 @@ function prepareScrubber(video: HTMLVideoElement, frame: HTMLElement) {
   };
 }
 
+const setup: SceneSetup = (system, gsap, media) => {
+  media.add("all", () => {
+    const explanation = system.querySelector("[data-system-explanation]");
+    const intro = explanation?.querySelector(".system-explanation__intro");
+    if (explanation && intro) {
+      gsap.from(intro, {
+        y: 8, ease: "none",
+        scrollTrigger: { trigger: explanation, start: "top 90%", end: "top 65%", scrub: true },
+      });
+    }
+    for (const part of system.querySelectorAll("[data-system-scene], [data-system-explanation]")) {
+      const draw = gsap.timeline({
+        scrollTrigger: { trigger: part, start: "top 70%", end: "bottom 70%", scrub: true },
+      });
+      draw.fromTo(part.querySelectorAll(".system-signal path"), { strokeDashoffset: 1 }, {
+        strokeDashoffset: 0, autoRound: false, ease: "none", duration: 1,
+      });
+    }
+  });
+
+  media.add("(min-width: 64rem) and (min-height: 42rem)", () => {
+    const scene = system.querySelector("[data-system-scene]");
+    const frame = system.querySelector<HTMLElement>("[data-system-frame]");
+    const video = system.querySelector<HTMLVideoElement>("[data-system-video]");
+    if (!scene || !frame || !video?.canPlayType('video/mp4; codecs="avc1.4D401F"') ||
+      !("IntersectionObserver" in window)) return;
+
+    const scrubber = prepareScrubber(video, frame);
+    const playhead = { time: 0 };
+
+    // Stretch the expansion over more scroll distance than the compact opening.
+    gsap.timeline({
+      defaults: { ease: "none" },
+      onUpdate: () => scrubber.setTime(playhead.time),
+      scrollTrigger: { trigger: scene, start: "top 80%", end: "bottom 88%", scrub: 0.16 },
+    })
+      .to(playhead, { time: 0.85, duration: 0.12 })
+      .to(playhead, { time: 3.25, duration: 0.46 })
+      .to(playhead, { time: 4.75, duration: 0.14 })
+      .to(playhead, { time: 6.9, duration: 0.28 });
+
+    return scrubber.dispose;
+  });
+};
+
 export function SystemMotion() {
-  const marker = useRef<HTMLSpanElement>(null);
+  const marker = useSceneMotion(".inside-system", setup, ".inside-system");
 
-  useEffect(() => {
-    const system = marker.current?.closest<HTMLElement>(".inside-system");
-    if (!system) return;
-
-    let disposed = false;
-    let revert: (() => void) | undefined;
-
-    Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(
-      ([{ gsap }, { ScrollTrigger }]) => {
-        if (disposed) return;
-        gsap.registerPlugin(ScrollTrigger);
-
-        const media = gsap.matchMedia(system);
-        revert = () => media.revert();
-
-        media.add("(prefers-reduced-motion: no-preference)", () => {
-          const explanation = system.querySelector("[data-system-explanation]");
-          const intro = explanation?.querySelector(".system-explanation__intro");
-          if (explanation && intro) {
-            gsap.from(intro, {
-              y: 12, opacity: 0.7, ease: "none",
-              scrollTrigger: { trigger: explanation, start: "top 90%", end: "top 65%", scrub: true },
-            });
-          }
-          for (const part of system.querySelectorAll("[data-system-scene], [data-system-explanation]")) {
-            const draw = gsap.timeline({
-              scrollTrigger: { trigger: part, start: "top 70%", end: "bottom 70%", scrub: true },
-            });
-            draw.fromTo(part.querySelectorAll(".system-signal path"), { strokeDashoffset: 1 }, {
-              strokeDashoffset: 0, autoRound: false, ease: "none", duration: 1,
-            });
-          }
-        });
-
-        media.add("(min-width: 64rem) and (min-height: 42rem) and (prefers-reduced-motion: no-preference)", () => {
-          const scene = system.querySelector("[data-system-scene]");
-          const frame = system.querySelector<HTMLElement>("[data-system-frame]");
-          const video = system.querySelector<HTMLVideoElement>("[data-system-video]");
-          if (!scene || !frame || !video?.canPlayType('video/mp4; codecs="avc1.4D401F"') ||
-            !("IntersectionObserver" in window)) return;
-
-          system.dataset.systemMotion = "";
-          const scrubber = prepareScrubber(video, frame);
-          const playhead = { time: 0 };
-
-          // Stretch the expansion over more scroll distance than the compact opening.
-          gsap.timeline({
-            defaults: { ease: "none" },
-            onUpdate: () => scrubber.setTime(playhead.time),
-            scrollTrigger: { trigger: scene, start: "top 80%", end: "bottom 88%", scrub: 0.16 },
-          })
-            .to(playhead, { time: 0.85, duration: 0.12 })
-            .to(playhead, { time: 3.25, duration: 0.46 })
-            .to(playhead, { time: 4.75, duration: 0.14 })
-            .to(playhead, { time: 6.9, duration: 0.28 });
-
-          return () => {
-            scrubber.dispose();
-            delete system.dataset.systemMotion;
-          };
-        });
-      },
-      () => {
-        // The poster and native disclosure controls render without animation.
-      },
-    );
-
-    return () => {
-      disposed = true;
-      revert?.();
-    };
-  }, []);
-
-  return <span hidden ref={marker} />;
+  return <span ref={marker} hidden />;
 }
