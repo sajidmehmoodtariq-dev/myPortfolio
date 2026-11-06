@@ -1,14 +1,14 @@
 # Content inventory
 
-The typed evidence registry is [src/content/portfolio.ts](../src/content/portfolio.ts). Identity, approximate freelance tenure, education, CS50x, and the toolbox list come from the owner’s brief. Preserve the approximate wording for tenure and keep the GitHub and LinkedIn links separate from any claim of credential verification.
+[src/content/portfolio.ts](../src/content/portfolio.ts) holds owner-supplied identity, education, tenure, and toolkit claims. [src/content/projects.ts](../src/content/projects.ts) holds case-study copy and evidence links pinned to the public revisions reviewed for Prompt 03. Source inspection establishes implementation details. Deployment, adoption, and outcomes require separate evidence.
 
-| Project | Candidate use | Evidence gate |
+| Project | Evidence reviewed | Requires confirmation |
 | --- | --- | --- |
-| PGC-DHA | Selected work and systems exhibit | README documents a school management system. The API entry point confirms student and class routes and a Mongoose connection. Trace the chosen workflow before publishing it. |
-| ResumeIQ | Selected work candidate | README calls it ResumeMatcher and describes resume analysis and authoring. Confirm the display name and trace the workflow. |
-| Ledger | Selected work candidate | The VS Code extension entry point registers a run history tree view. Trace capture and storage separately before describing them. |
-| Folio | Selected work candidate | README describes a local PDF question-answering tool. Verify retrieval and citations in code. |
-| Nudge | Selected work candidate | The React Native entry point confirms stack navigation. Verify the user-facing purpose and workflow. |
-| Job Portal / ServiceM8, Inkly, YC Directory, CS50 final project | Research backlog | Confirm the source, the owner’s contribution, and permission to show client work. |
+| PGC-DHA | Developer credit in the README, role checks, enquiry statuses, permission-gated reporting, class and student endpoints, and the MongoDB connection | Contribution boundaries, deployment, institutional adoption or impact, and an approved screen with synthetic records |
+| ResumeIQ | Upload and scoring routes, FastEmbed/BGE semantic scorer, Gemini adapter, and ReportLab renderer | Public naming because the README says ResumeMatcher, contribution scope, scoring evaluation, job-search outcomes, and approved screenshots |
+| Ledger | VS Code terminal integration, snapshot hashing, bounded workspace storage, and code and output diff views | Contribution scope, distribution, adoption or usage outcomes, and approved extension screenshots |
+| Folio | Page extraction and retrieval flow, FAISS indexing, local answering, and source quote matching | Contribution scope, supported document coverage, citation and answer accuracy, and approved demo media |
+| Nudge | App input and navigation, SQLite reminder lifecycle, Notifee triggers, and the public Android reminder screenshot | Contribution scope, store release, device coverage, and notification reliability |
+| Client Job Portal | Owner brief identifies the ServiceM8 recruitment project and its technical focus | Clearance for public discussion, scope and role, redacted OAuth and role-flow evidence, approved imagery, and any outcome. The public listing stays at the owner-supplied summary until confirmed. |
 
-Use one evidence record per claim. Record the source URL and whether the claim is owner supplied, README documented, source verified, or pending. Prompt 01 links point to the files inspected. Before publishing a case study, pin evidence links to the reviewed commit and trace the showcased workflow through its implementation. A checked feature can still have unknown deployment status, ownership, or outcomes. Publish metrics, dates, client details, and testimonials only with explicit evidence and authorization. Use synthetic records in screenshots and never reproduce credentials, student records, or private client data. Publish notes only when the author and final text are supplied.
+Keep client identities, credentials, and student records out of published content. The four featured visuals use synthetic examples labeled as illustrative demos. An implementation finding may describe what the code does. Any deployment, performance, adoption, or business outcome needs its own verifiable source. Publish notes when the author and final text are supplied.

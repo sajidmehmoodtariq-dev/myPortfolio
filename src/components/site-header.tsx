@@ -9,19 +9,20 @@ const links = [
   { label: "Contact", href: "#contact" },
 ] as const;
 
-export function SiteHeader() {
+export function SiteHeader({ onHomepage = true }: { onHomepage?: boolean }) {
   const menu = useRef<HTMLDetailsElement>(null);
   const toggle = useRef<HTMLElement>(null);
+  const home = onHomepage ? "" : "/";
 
   return (
     <header className="site-header">
       <div className="exhibit-container header-inner">
-        <a className="site-brand" href="#intro" aria-label="SMT, introduction">
+        <a className="site-brand" href={`${home}#intro`} aria-label="SMT, introduction">
           <span className="brand-mark" aria-hidden="true">SMT<span>.</span></span>
           <span className="brand-caption">The Engineering Exhibit</span>
         </a>
         <nav className="desktop-nav" aria-label="Primary">
-          {links.map(({ label, href }) => <a key={href} href={href}>{label}</a>)}
+          {links.map(({ label, href }) => <a key={href} href={`${home}${href}`}>{label}</a>)}
         </nav>
         <details
           className="mobile-nav"
@@ -40,9 +41,9 @@ export function SiteHeader() {
           </summary>
           <nav aria-label="Primary">
             {links.map(({ label, href }, index) => (
-              <a key={href} href={href} onClick={() => {
+              <a key={href} href={`${home}${href}`} onClick={() => {
                 if (menu.current) menu.current.open = false;
-                document.getElementById(href.slice(1))?.focus({ preventScroll: true });
+                if (onHomepage) document.getElementById(href.slice(1))?.focus({ preventScroll: true });
               }}>
                 <span aria-hidden="true">0{index + 1}</span>{label}
               </a>

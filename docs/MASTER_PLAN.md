@@ -20,6 +20,6 @@ The App Router root layout owns metadata, language, typography, and the skip lin
 
 1. Prompt 01 delivers this planning set, local Git history, a strict Next.js foundation, and seven heading-only sections.
 2. The next milestone implements only the hero. Compare the supplied frames, choose a responsive crop or reproduction, build identity copy and the selected-work link, then tune the orange path entrance and a reduced-motion still. Validate mobile, keyboard, asset failure, and desktop fidelity.
-3. Implement selected work and verified case-study routes. Collect approved screenshots before publishing them.
+3. Prompt 03 builds Selected Work and static case-study routes from the pinned evidence registry. Use clearly labeled demonstrations until approved product screenshots are available.
 4. Build Inside the System, then the toolbox, experience, notes, and contact sections. Extend the spline as each stop lands.
 5. Tune whole-page performance and accessibility with real devices, then review the release against the test plan.

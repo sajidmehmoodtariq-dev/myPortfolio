@@ -11,3 +11,9 @@ The supplied files are in `assets/`. Keep these source files outside the public 
 No `references/` directory, separately identified original portfolio video, or five secondary inspiration recordings were found. The first video frame differs from `start.jpg`. Treat the still as a composition reference rather than assuming it is a literal video frame.
 
 The supplied clip remains available for the Inside the System exhibit. When publishing reference-derived media there, compare an optimized clip with a responsive poster and keep accessible annotation text separate from the scene. Labels baked into the renders describe the concept and do not substantiate technical claims. Later exhibits require approved project screenshots or a sanitized recreation tied to verified features. Record dimensions, derivatives, ownership, and fallback for each published asset.
+
+## Selected Work
+
+The PGC-DHA, ResumeIQ, Ledger, and Folio scenes are HTML/CSS demonstrations with synthetic inputs. The public trees reviewed did not include usable product screenshots for these four projects. ResumeIQ's repository hero PNG is a decorative illustration. The demonstrations have distinct captions and no client records.
+
+`public/work/nudge-notification.jpg` is the original 1080 × 2400 Android notification screenshot from Nudge's public repository. The Nudge case study links the [pinned source image](https://github.com/sajidmehmoodtariq-dev/Nudge/blob/7fc459413a355a97f5c296c37a153f00db92f9bb/src/assets/screenshots/notification.jpg). Next Image serves responsive derivatives. The Client Job Portal is listed with public clearance pending.
