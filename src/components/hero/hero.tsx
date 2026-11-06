@@ -8,6 +8,12 @@ export function Hero({ chapterCount }: { chapterCount: string }) {
   return (
     <section id="intro" className="hero" aria-labelledby="intro-heading">
       <div className="hero-field" data-hero-field aria-hidden="true" />
+      <SignalSpline
+        layer="rear"
+        motion="entrance"
+        desktop="M -500 864 H 0 C 142 864 245 881 404 796 S 620 658 686 584 C 745 518 763 390 818 293 C 846 244 892 239 901 299 C 914 402 871 620 810 685"
+        mobile="M 0 876 C 157 875 283 835 407 796 C 528 758 662 638 817 635 C 985 632 877 737 725 795"
+      />
       <div className="exhibit-container hero-inner">
         <div className="hero-copy">
           <p className="hero-eyebrow" data-hero-marker><span />Sajid Mehmood Tariq / Software Engineer</p>
@@ -34,14 +40,14 @@ export function Hero({ chapterCount }: { chapterCount: string }) {
       <SignalSpline
         layer="front"
         motion="entrance"
-        desktop="M 0 864 C 155 865 244 881 404 796 S 655 717 754 670 C 819 639 860 606 898 602 C 945 597 933 662 890 703 C 866 727 832 724 819 756"
-        mobile="M 0 876 C 151 879 278 843 420 800 C 536 765 628 752 738 749 C 832 747 855 779 820 821 C 796 851 730 859 743 887"
+        desktop="M 810 685 C 757 742 688 778 674 742 C 657 698 708 675 752 680 C 791 684 806 718 819 768"
+        mobile="M 725 795 C 635 829 483 873 441 852 C 400 831 502 806 605 824 C 674 836 722 865 743 887"
       />
       <SignalSpline
         layer="handoff"
         motion="scroll"
-        desktop="M 819 756 C 795 815 832 874 827 925 C 825 955 818 974 818 1000"
-        mobile="M 743 887 C 755 913 781 934 773 952 C 768 969 760 979 760 1000"
+        desktop="M 819 768 C 832 818 838 869 828 918 C 822 945 818 973 818 1000"
+        mobile="M 743 887 C 761 906 781 931 773 952 C 768 969 760 979 760 1000"
       />
       <div className="exhibit-container hero-register" data-hero-marker aria-hidden="true">
         <span><i /> 01 / Introduction</span>

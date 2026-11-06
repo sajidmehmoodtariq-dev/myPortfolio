@@ -1,6 +1,6 @@
 # Vercel deployment and search indexing
 
-The portfolio is live at [smt-engineering-exhibit.vercel.app](https://smt-engineering-exhibit.vercel.app). The Next.js App Router project uses Node 24.x and is linked to `smt-engineering-exhibit` in Vercel. Releases upload the local checkout through the Vercel CLI. This checkout has no Git remote, so a local commit alone does not trigger a deployment. The homepage, case-study index, individual studies, registered notes, and project social cards are generated at build time.
+The portfolio is live at [www.sajidmehmoodtariq.dev](https://www.sajidmehmoodtariq.dev). The apex redirects to the www hostname. The Vercel alias also serves the site and declares the www URLs as canonical. The Next.js App Router project uses Node 24.x and is linked to `smt-engineering-exhibit` in Vercel. The release workflow below uploads the local checkout through the Vercel CLI. The homepage, case-study index, individual studies, registered notes, and project social cards are generated at build time.
 
 ## Release commands
 
@@ -15,7 +15,7 @@ vercel.cmd deploy --target=preview
 vercel.cmd deploy --prod
 ```
 
-For a new checkout, first run `vercel.cmd link --project smt-engineering-exhibit`. Check the preview before publishing production. Keep the lockfile committed. The CLI link and downloaded local credentials are ignored by Git. The source-only reference media and development documentation are excluded from uploads.
+For a new checkout, first run `vercel.cmd link --project smt-engineering-exhibit`. Check the preview before publishing production. Use a fresh production build because a preview artifact contains noindex metadata. Keep the lockfile committed. The CLI link and downloaded local credentials are ignored by Git. The source-only reference media and development documentation are excluded from uploads.
 
 ## Canonical host and crawl rules
 
@@ -35,9 +35,15 @@ Production pages emit indexable directives. Vercel previews emit `noindex, nofol
 
 ## Google Search Console
 
-1. Add a URL-prefix property for the stable production HTTPS URL.
+1. Add the URL-prefix property `https://www.sajidmehmoodtariq.dev/`.
 2. Select HTML tag verification. Copy the tag's `content` value into the Vercel Production environment as `GOOGLE_SITE_VERIFICATION`, then redeploy. The homepage emits the token on indexable builds.
-3. Verify ownership, submit `sitemap.xml` under **Sitemaps**, and inspect the homepage and case-study index. Request indexing once the live inspection passes.
+3. Verify ownership, submit [sitemap.xml](https://www.sajidmehmoodtariq.dev/sitemap.xml) under **Sitemaps**, and inspect the homepage and case-study index. Request indexing once the live inspection passes.
 4. Review the indexing and Core Web Vitals reports as data becomes available.
+
+## Launch verification
+
+On November 6, 2026, all seven production routes returned 200 with distinct titles, descriptions, and 1200 × 630 share cards. Each canonical matched its sitemap entry. The preview carried noindex and an empty sitemap. Unknown routes returned 404, and both video sources served byte ranges. The public Chromium smoke test passed the desktop wheel gallery, mobile swipe, keyboard controls, project deep links, and case-study video loading.
+
+Lighthouse 13.6.0 reported 100 for SEO, accessibility, and best practices on the production homepage and PGC-DHA study. Desktop homepage and mobile case-study performance scored 99. Three mobile homepage runs scored 73, 98, and 99, with a median LCP of 1.18 s and CLS of 0 across all three. These are lab results.
 
 [Vercel CLI deployment](https://vercel.com/docs/projects/deploy-from-cli) · [Vercel system environment variables](https://vercel.com/docs/environment-variables/system-environment-variables) · [Search Console URL-prefix setup](https://support.google.com/webmasters/answer/34592) · [Google sitemap guidance](https://developers.google.com/search/docs/crawling-indexing/sitemaps/build-sitemap)

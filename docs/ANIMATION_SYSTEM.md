@@ -6,13 +6,13 @@ The hero and its settled assembly render on the server. A client enhancement laz
 
 The entrance starts with the field and frame, then staggers the two headline phrases. The upper and lower plates open before the glass, display, and logic layers finish separating along three axes. A slight yaw resolves as the orange orbit draws behind and then in front of the assembly. The technical markers appear near the end. The sequence lasts about 2.25 seconds, with readable content at full opacity. Focusing or pressing inside the hero settles it immediately. A deep link or restored scroll position skips the entrance.
 
-The hero draws a visible foreground curve that joins the handoff at a shared tangent. The handoff ends as the hero bottom reaches 72% of the viewport. One page-level SVG continues from that point behind text and media. Its leading edge follows the same viewport line, using sampled path coordinates to map vertical scroll to actual curve length. The path ends at the contact marker. ResizeObserver updates the geometry when the layout changes.
+The hero curve passes behind the assembly and reappears on its front before joining the handoff at a shared tangent. The handoff ends as the hero bottom reaches 72% of the viewport. One page-level SVG continues from that point behind text and media. It leaves the right edge before the project rail, stays outside the viewport through the gallery, and re-enters at Toolbox. Its leading edge follows the viewport line when visible. The path ends at the contact marker. ResizeObserver updates the geometry when the layout changes.
 
 On desktop fine-pointer devices, damped camera tilt is limited to three degrees vertically and four horizontally. Pointer exit returns the camera to neutral. With reduced motion, the assembly entrance uses shorter travel with no camera tilt or text displacement.
 
 ## Selected Work
 
-All five projects share one horizontal rail. On a desktop viewport that fits the gallery, its frame sticks below the header while native document scroll advances or reverses the rail. Smaller viewports use native horizontal swipe and snap. Named anchors, previous and next controls, and keyboard arrows reach the same slides. Case-study links use normal Next.js navigation.
+All five projects share one horizontal rail. On a desktop viewport that fits the gallery, its frame sticks below the header while native document scroll drives continuous horizontal travel. A gutter separates moving projects, and the rail eases to the nearest centered slide when scrolling stops. Reduced motion shortens the easing. Smaller viewports use native horizontal swipe and snap. Named anchors, previous and next controls, and keyboard arrows reach the same slides. Case-study links use normal Next.js navigation.
 
 ## Inside the System
 

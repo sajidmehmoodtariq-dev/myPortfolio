@@ -39,7 +39,8 @@ const setup: SceneSetup = (hero, gsap, media) => {
       .fromTo(".assembly-layer:not(.assembly-layer--base, .assembly-layer--cap)", { "--spread": reduced ? 0.52 : 0.19 }, {
         "--spread": 1, duration: 0.88, stagger: 0.09, ease: "power3.inOut",
       }, 0.52)
-      .from('[data-signal="entrance"]', { strokeDashoffset: 1, autoRound: false, duration: 1.05 }, 0.88)
+      .from('.signal-spline--rear [data-signal="entrance"]', { strokeDashoffset: 1, autoRound: false, duration: 0.76 }, 0.88)
+      .from('.signal-spline--front [data-signal="entrance"]', { strokeDashoffset: 1, autoRound: false, duration: 0.47 }, 1.64)
       .fromTo(".assembly-leaders path", { strokeDasharray: "1 2", strokeDashoffset: 1 }, {
         strokeDashoffset: 0, autoRound: false, duration: 0.4,
       }, 1.62)

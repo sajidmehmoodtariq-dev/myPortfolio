@@ -108,6 +108,7 @@
 }
 
 [data-wheel-gallery] .work-gallery__viewport {
+  column-gap: clamp(2.5rem, 5vw, 5rem);
   overflow-x: hidden;
   scroll-snap-type: none;
 }

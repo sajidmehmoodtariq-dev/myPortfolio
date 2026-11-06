@@ -17,21 +17,51 @@ export function ProjectRail({ count, children }: { count: number; children: Reac
     const rail = viewport.current;
     if (!chapter || !panel || !rail) return;
     const desktop = window.matchMedia(desktopGallery);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
     let raf = 0;
+    let visibleIndex: number | undefined;
+    let rendered: number | undefined;
+    let settling = false;
+    let settleTimer: number | undefined;
 
     function sync() {
       raf = 0;
-      if (!rail?.clientWidth) return;
+      const width = rail?.clientWidth;
+      if (!rail || !width) return;
       const position = geometry.current;
+      let step = width;
       if (position) {
+        step = (rail.scrollWidth - width) / (count - 1);
         const progress = Math.max(0, Math.min(1, (window.scrollY - position.start) / position.travel));
-        rail.scrollLeft = progress * (rail.scrollWidth - rail.clientWidth);
+        const slide = progress * (count - 1);
+        const target = (settling ? Math.round(slide) : slide) * step;
+        const left = rendered ?? target;
+        const delta = target - left;
+        const easing = reduced.matches ? 0.48 : settling ? 0.23 : 0.4;
+        rendered = Math.abs(delta) < 0.75 ? target : left + delta * easing;
+        rail.scrollLeft = rendered;
+        if (rendered !== target) schedule();
       }
-      setActive(Math.min(count - 1, Math.round(rail.scrollLeft / rail.clientWidth)));
+      const index = Math.min(count - 1, Math.round(rail.scrollLeft / step));
+      if (visibleIndex !== index) {
+        visibleIndex = index;
+        setActive(index);
+      }
     }
 
     function schedule() {
       if (!raf) raf = requestAnimationFrame(sync);
+    }
+
+    function onPageScroll() {
+      if (!geometry.current) return;
+      settling = false;
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(() => {
+        settling = true;
+        schedule();
+      }, 160);
+      schedule();
     }
 
     function measure() {
@@ -46,7 +76,9 @@ export function ProjectRail({ count, children }: { count: number; children: Reac
       } else {
         chapter.style.removeProperty("min-height");
         geometry.current = null;
+        window.clearTimeout(settleTimer);
       }
+      rendered = undefined;
       schedule();
     }
 
@@ -60,7 +92,7 @@ export function ProjectRail({ count, children }: { count: number; children: Reac
     const resize = new ResizeObserver(measure);
     resize.observe(panel);
     window.addEventListener("resize", measure);
-    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("scroll", onPageScroll, { passive: true });
     window.addEventListener("hashchange", followHash);
     desktop.addEventListener("change", measure);
     rail.addEventListener("scroll", schedule, { passive: true });
@@ -68,9 +100,10 @@ export function ProjectRail({ count, children }: { count: number; children: Reac
     followHash();
     return () => {
       cancelAnimationFrame(raf);
+      window.clearTimeout(settleTimer);
       resize.disconnect();
       window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("scroll", onPageScroll);
       window.removeEventListener("hashchange", followHash);
       desktop.removeEventListener("change", measure);
       rail.removeEventListener("scroll", schedule);
