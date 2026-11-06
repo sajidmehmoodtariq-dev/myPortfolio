@@ -1,9 +1,8 @@
-import { ExhibitSection } from "@/components/exhibit-section";
+import { Finale } from "@/components/finale/finale";
 import { Hero } from "@/components/hero/hero";
 import { SiteHeader } from "@/components/site-header";
 import { InsideSystem } from "@/components/system/inside-system";
 import { SelectedWork } from "@/components/work/selected-work";
-import { exhibitSections } from "@/content/sections";
 
 export default function Home() {
   return (
@@ -13,9 +12,7 @@ export default function Home() {
         <Hero />
         <SelectedWork />
         <InsideSystem />
-        {exhibitSections.slice(3).map((section, index) => (
-          <ExhibitSection key={section.id} {...section} number={index + 4} />
-        ))}
+        <Finale />
       </main>
     </>
   );

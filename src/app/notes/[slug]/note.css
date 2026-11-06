@@ -1,0 +1,86 @@
+.note-page {
+  --content-width: 52rem;
+  padding-block: clamp(2rem, 6vw, 5rem);
+}
+
+.note-page__back {
+  display: inline-flex;
+  align-items: center;
+  min-block-size: 2.75rem;
+  margin-block-end: 2rem;
+  color: var(--color-muted);
+}
+
+.note-page__back:hover,
+.note-page__prose a {
+  color: var(--color-accent);
+}
+
+.note-page__metadata {
+  color: var(--color-accent);
+  font: 0.75rem var(--font-mono);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.note-page h1 {
+  margin-block: 0.8rem;
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 1.04;
+  overflow-wrap: anywhere;
+}
+
+.note-page__summary,
+.note-page__prose {
+  color: var(--color-muted);
+}
+
+.note-page__summary {
+  font-size: clamp(1rem, 2vw, 1.3rem);
+}
+
+.note-page__prose {
+  max-inline-size: 70ch;
+  margin-block-start: 2rem;
+  padding-block-start: 1.25rem;
+  border-top: 1px solid var(--color-border);
+  overflow-wrap: anywhere;
+}
+
+.note-page__prose > * + * {
+  margin-block-start: 1rem;
+}
+
+.note-page__prose :is(h2, h3, h4, strong) {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+
+.note-page__prose h2 { font-size: 1.6rem; }
+.note-page__prose h3 { font-size: 1.25rem; }
+
+.note-page__prose a {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.note-page__prose ul,
+.note-page__prose ol {
+  padding-inline-start: 1.5rem;
+}
+
+.note-page__prose ul { list-style: disc; }
+.note-page__prose ol { list-style: decimal; }
+
+.note-page__prose pre,
+.note-page__prose blockquote {
+  padding: 0.85rem 1rem;
+  border-inline-start: 1px solid var(--color-accent);
+  background: var(--color-surface);
+}
+
+.note-page__prose pre {
+  overflow: auto;
+}

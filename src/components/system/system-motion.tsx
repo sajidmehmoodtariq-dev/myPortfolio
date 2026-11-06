@@ -130,11 +130,6 @@ export function SystemMotion() {
             draw.fromTo(part.querySelectorAll(".system-signal path"), { strokeDashoffset: 1 }, {
               strokeDashoffset: 0, autoRound: false, ease: "none", duration: 1,
             });
-            if (part.hasAttribute("data-system-explanation") && system.nextElementSibling) {
-              draw.fromTo(system.nextElementSibling, { "--system-join": 0 }, {
-                "--system-join": 0.88, ease: "none", duration: 0.03,
-              }, 0.97);
-            }
           }
         });
 

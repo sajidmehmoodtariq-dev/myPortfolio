@@ -12,3 +12,4 @@ Use Node 20.9 or newer. Install the locked dependencies with `npm ci`. Run `npm 
 - Inspect the network and performance traces. Heavy scenes should load only when needed and reserve their layout. Profile scrolling on a midrange mobile device before adding motion dependencies or increasing DPR. Measure frame consistency on actual devices.
 - Compare scene composition and phase changes with the reference. Check alignment, orange path continuity, contrast, and cramped labels at each breakpoint.
 - Confirm that published claims have evidence and that screenshots contain no private records. Verify case studies return 200 for known slugs and 404 for unknown ones after their routes land.
+- Check each closing anchor, toolbox project link, and contact channel. Verify the orange path reaches the final diagram at maximum scroll and appears complete with reduced motion. Check the empty Notes state and confirm unlisted note slugs return 404.

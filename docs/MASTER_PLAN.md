@@ -14,7 +14,7 @@ Sajid Mehmood Tariq’s portfolio presents software engineering as a sequence of
 | 06 | `#notes` | EngineeringNotes and NoteLink | Index authored engineering notes. |
 | 07 | `#contact` | ContactScene and ContactLinks | Close the spline and provide direct ways to connect. |
 
-The App Router root layout owns metadata, language, typography, and the skip link. The home page owns the main landmark and composes section shells from the section registry. Each stop can become its own Server Component once it has content. Keep scene loaders and browser-only logic at the owning section. Case studies will live at `/work/[slug]` with server-rendered content and unknown slugs handled by `notFound()`. Publish a case-study route only after its content and assets are ready.
+The App Router root layout owns metadata, language, typography, and the skip link. The homepage composes the seven sections as Server Components, with scene loaders and browser-only logic scoped to the owning exhibit. Case studies live at `/work/[slug]`, and approved Markdown notes use `/notes/[slug]`. Both use content registries and return 404 for unlisted slugs.
 
 ## Implementation order
 
@@ -22,5 +22,5 @@ The App Router root layout owns metadata, language, typography, and the skip lin
 2. The next milestone implements only the hero. Compare the supplied frames, choose a responsive crop or reproduction, build identity copy and the selected-work link, then tune the orange path entrance and a reduced-motion still. Validate mobile, keyboard, asset failure, and desktop fidelity.
 3. Prompt 03 builds Selected Work and static case-study routes from the pinned evidence registry. Use clearly labeled demonstrations until approved product screenshots are available.
 4. Prompt 04 adds Inside the System with the reference assembly and a source-linked PGC-DHA architecture walkthrough.
-5. Build the toolbox, experience, notes, and contact sections. Extend the spline as each stop lands.
+5. Prompt 05 completes the toolbox, experience, notes, and contact sections and resolves the spline at the final diagram.
 6. Tune whole-page performance and accessibility with real devices, then review the release against the test plan.
