@@ -6,7 +6,7 @@ The supplied files are in `assets/`. Keep these source files outside the public 
 | --- | --- | --- |
 | `assets/start.jpg` | 2752 × 1536. Open isometric stack with a thin orange loop on dark green and no callouts. | Source for the system posters. |
 | `assets/end.jpg` | 2752 × 1536. Related assembly with leader lines and labels. | Annotation spacing and exploded-depth reference. |
-| `assets/video.mp4` | 1280 × 720, 10 seconds at 24 fps. The stack expands around 1–3 seconds, settles, then adds callouts around 5–6.5 seconds. | Source for the desktop system animation. |
+| `assets/video.mp4` | 1280 × 720, 10 seconds at 24 fps. The stack expands around 1–3 seconds, settles, then adds callouts around 5–6.5 seconds. | Source for both System animation encodes. |
 
 No `references/` directory, separately identified original portfolio video, or five secondary inspiration recordings were found. The first video frame differs from `start.jpg`. Treat the still as a composition reference rather than assuming it is a literal video frame.
 
@@ -22,13 +22,15 @@ The PGC-DHA, ResumeIQ, Ledger, and Folio scenes are HTML/CSS demonstrations with
 
 | Runtime asset | Source and preparation | Size |
 | --- | --- | --- |
-| `public/system/assembly.mp4` | First 7.25 seconds of the source clip, H.264 Main at 1120 × 630 and 24 fps, keyframes every six frames, fast-start metadata, and audio removed | 1.01 MiB |
+| `public/system/assembly.mp4` | Full source video, H.264 Main at 1120 × 630 and 24 fps, keyframes every four frames, fast-start metadata, and audio removed | 2.16 MiB |
+| `public/system/assembly-mobile.mp4` | Same frame sequence at 640 × 360 with stronger compression | 0.83 MiB |
+| `public/system/assembly-opening.webp` | First decoded frame, for the initial media load | 14 KiB |
 | `public/system/assembly.webp` | `start.jpg` resampled to 1280 × 714 | 23 KiB |
 | `public/system/assembly-compact.webp` | Center crop of `start.jpg` at 800 × 600 for narrow screens | 16 KiB |
 
 The short-keyframe encode preserves the supplied composition, lighting, orange orbit, and baked leader animation. Reconstructing in Three.js would allow independent layer controls and camera changes. The supplied images and video leave geometry, materials, and lighting underspecified, and a reconstruction would add asset authoring and runtime costs. A frame sequence would give deterministic random access while adding image requests and decoded frame memory. The single video plus a poster keeps the asset path smaller and simpler.
 
-The desktop source attaches within 400px of the viewport and only with motion enabled. Seeking is quantized to source frames, coalesced to the newest target, spaced by at least 80ms, and waits for each in-flight seek. Browser decoding and slow networks may delay the first moving frame. The poster remains in place until media is ready and returns on failure. A desktop decode or load failure can leave the native sticky chapter in place with the poster. Compact and reduced-motion views load only the relevant poster. The baked labels are kept within the concept render. The PGC-DHA disclosures use independently verified source text. The supplied `end.jpg` is a reference for the spacing of callouts in the final pose.
+One source attaches within 80% of a viewport of the figure with motion enabled. Seeking is quantized to source frames, coalesced on the next animation frame, and waits for each in-flight seek. Slow downloads or decoding can delay the first moving frame. The opening frame displays during load, the video retains its latest decoded frame during seeking, and the settled poster is shown on failure or with reduced motion. A desktop failure leaves the preallocated sticky chapter in place to avoid reflow. The compact video preserves the full frame so the baked labels stay within the concept render. The PGC-DHA disclosures supply the readable architecture text separately. The supplied `end.jpg` remains a composition reference.
 
 ## Closing chapters
 

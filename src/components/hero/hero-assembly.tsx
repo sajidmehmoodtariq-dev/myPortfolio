@@ -35,7 +35,7 @@ export function HeroAssembly() {
         <span className="assembly-view">View <b>/</b> AXO</span>
       </div>
       <svg className="assembly-leaders" viewBox="0 0 640 580" preserveAspectRatio="none" data-hero-marker>
-        <path d="M65 158h65l54 67m378 119h-39l-50-67M98 429h61l58-46" />
+        <path d="M65 158h65l54 67m378 119h-39l-50-67M98 429h61l58-46" pathLength="1" />
         <circle cx="184" cy="225" r="3" />
         <circle cx="473" cy="277" r="3" />
         <circle cx="217" cy="383" r="3" />
@@ -46,17 +46,17 @@ export function HeroAssembly() {
       <div className="assembly-shadow" />
       <div className="assembly-camera">
         <div className="assembly-rig" data-hero-rig>
-          <div className="assembly-layer assembly-layer--base" data-hero-layer>
+          <div className="assembly-layer assembly-layer--base">
             <div className="base-inlay" />
           </div>
-          <div className="assembly-layer assembly-layer--back" data-hero-layer>
+          <div className="assembly-layer assembly-layer--back">
             <div className="assembly-face assembly-face--back">
               <div className="back-grid" />
               <span>SMT / EX-01</span>
               <span>CHASSIS</span>
             </div>
           </div>
-          <div className="assembly-layer assembly-layer--logic" data-hero-layer>
+          <div className="assembly-layer assembly-layer--logic">
             <div className="assembly-face assembly-face--logic">
               <div className="logic-vents" />
               <svg className="logic-traces" viewBox="0 0 300 200" fill="none" stroke="currentColor">
@@ -66,13 +66,13 @@ export function HeroAssembly() {
               </svg>
             </div>
           </div>
-          <div className="assembly-layer assembly-layer--pane" data-hero-layer>
+          <div className="assembly-layer assembly-layer--pane">
             <div className="assembly-face assembly-face--pane">
               <span>02</span>
               <span>LOGIC / BUS</span>
             </div>
           </div>
-          <div className="assembly-layer assembly-layer--display" data-hero-layer>
+          <div className="assembly-layer assembly-layer--display">
             <div className="assembly-face assembly-face--display">
               <span className="display-screw display-screw--tl" />
               <span className="display-screw display-screw--tr" />
@@ -85,7 +85,7 @@ export function HeroAssembly() {
               </div>
             </div>
           </div>
-          <div className="assembly-layer assembly-layer--cap" data-hero-layer>
+          <div className="assembly-layer assembly-layer--cap">
             <div className="cap-inlay" />
           </div>
         </div>

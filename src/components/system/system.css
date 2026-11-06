@@ -149,7 +149,7 @@
   white-space: nowrap;
 }
 
-.system-figure__media {
+.system-figure .scroll-driven-video {
   position: relative;
   overflow: hidden;
   aspect-ratio: 16 / 9;
@@ -159,7 +159,7 @@
   mask-composite: intersect;
 }
 
-.system-figure__media :is(img, video) {
+.scroll-driven-video :is(img, video) {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -168,17 +168,19 @@
   pointer-events: none;
 }
 
-.system-figure__media video {
+.scroll-driven-video video {
   opacity: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .system-figure__media video {
-    transition: opacity 160ms linear;
-  }
+.system-figure [data-video-state="loading"] {
+  background: url("/system/assembly-opening.webp") center / cover;
 }
 
-.system-figure__frame[data-system-ready] video {
+.scroll-driven-video[data-video-state="loading"] img {
+  visibility: hidden;
+}
+
+.scroll-driven-video:is([data-video-state="ready"], [data-video-state="buffering"]) video {
   opacity: 1;
 }
 
@@ -370,7 +372,7 @@
 
 @media (min-width: 64rem) and (min-height: 42rem) and (prefers-reduced-motion: no-preference) {
   .system-scene {
-    min-height: 155svh;
+    min-height: 185svh;
   }
 
   .system-scene__sticky {
@@ -409,10 +411,6 @@
 
   .system-scene__layout {
     gap: 2rem;
-  }
-
-  .system-figure__media {
-    aspect-ratio: 4 / 3;
   }
 
   .system-explanation__layout {

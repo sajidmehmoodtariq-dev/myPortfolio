@@ -37,14 +37,25 @@ const setup: SceneSetup = (hero, gsap, media) => {
 
     const entrance = gsap.timeline({ defaults: { ease: "power2.out" } });
     entrance
-      .from("[data-hero-field]", { opacity: 0.35, duration: 0.7 }, 0)
-      .from("[data-hero-marker]:not(.hero-eyebrow)", { opacity: 0, y: 5, duration: 0.38, stagger: 0.028 }, 0.08)
-      .from("[data-hero-line]", { y: 12, duration: 0.62, stagger: 0.12 }, 0.23)
-      .fromTo(rig, { "--spread": 0.16 }, { "--spread": 1, duration: 1.02 }, 0.23)
-      .from("[data-hero-layer]", { opacity: 0.15, duration: 0.53, stagger: 0.044 }, 0.24)
-      .from('.signal-spline--rear [data-signal="entrance"]', { strokeDashoffset: 1, autoRound: false, duration: 0.47 }, 0.45)
-      .from('.signal-spline--front [data-signal="entrance"]', { strokeDashoffset: 1, autoRound: false, duration: 0.41 }, 0.92)
-      .from("[data-hero-detail]", { y: 5, duration: 0.43, stagger: 0.1 }, 0.74);
+      .from("[data-hero-field]", { opacity: 0.28, duration: 0.8 }, 0)
+      .from(".assembly-frame", { opacity: 0, duration: 0.55 }, 0.08)
+      .from("[data-hero-line]", { y: 22, duration: 0.72, stagger: 0.14 }, 0.16)
+      .fromTo(rig, { "--entrance-yaw": "-12deg" }, { "--entrance-yaw": "0deg", duration: 1.3 }, 0.28)
+      .fromTo(".assembly-layer--base, .assembly-layer--cap", { "--spread": 0.28 }, {
+        "--spread": 1, duration: 0.94, stagger: 0.13, ease: "power3.inOut",
+      }, 0.32)
+      .fromTo(".assembly-layer:not(.assembly-layer--base, .assembly-layer--cap)", { "--spread": 0.19 }, {
+        "--spread": 1, duration: 0.88, stagger: 0.09, ease: "power3.inOut",
+      }, 0.52)
+      .from('.signal-spline--rear [data-signal="entrance"]', { strokeDashoffset: 1, autoRound: false, duration: 0.76 }, 0.88)
+      .from('.signal-spline--front [data-signal="entrance"]', { strokeDashoffset: 1, autoRound: false, duration: 0.47 }, 1.64)
+      .fromTo(".assembly-leaders path", { strokeDasharray: "1 2", strokeDashoffset: 1 }, {
+        strokeDashoffset: 0, autoRound: false, duration: 0.4,
+      }, 1.62)
+      .from(".assembly-leaders circle, .assembly-label, .hero-register", {
+        opacity: 0, y: 5, duration: 0.32, stagger: 0.035,
+      }, 1.81)
+      .from("[data-hero-detail]", { y: 13, duration: 0.5, stagger: 0.1 }, 1.42);
 
     const settle = () => entrance.progress(1);
     hero.addEventListener("focusin", settle);

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { systemLayers } from "@/content/system-architecture";
+import { ScrollDrivenVideo } from "./scroll-driven-video";
 import { SystemMotion } from "./system-motion";
 import "./system.css";
 
@@ -28,7 +29,7 @@ export function InsideSystem() {
     <section id="system" className="inside-system" aria-labelledby="system-heading" tabIndex={-1}>
       <div className="system-scene" data-system-scene>
         <SystemSignal segment="scene" />
-        <div className="system-scene__sticky">
+        <div className="system-scene__sticky" data-scroll-video-sticky>
           <div className="exhibit-container system-scene__layout">
             <header className="system-intro">
               <p className="system-kicker"><b>03</b> / System anatomy</p>
@@ -42,9 +43,10 @@ export function InsideSystem() {
             </header>
 
             <figure className="system-figure">
-              <div className="system-figure__frame" data-system-frame>
+              <div className="system-figure__frame">
                 <span className="system-figure__registration" aria-hidden="true">FIG 03 / Exploded assembly</span>
-                <div className="system-figure__media">
+                <ScrollDrivenVideo sceneSelector=".system-scene" desktopSrc="/system/assembly.mp4"
+                  compactSrc="/system/assembly-mobile.mp4" fps={24}>
                   <picture>
                     <source media="(max-width: 47.99rem)" srcSet="/system/assembly-compact.webp" />
                     <Image
@@ -56,8 +58,7 @@ export function InsideSystem() {
                       className="system-figure__poster"
                     />
                   </picture>
-                  <video data-system-video muted playsInline preload="none" disablePictureInPicture aria-hidden="true" tabIndex={-1} />
-                </div>
+                </ScrollDrivenVideo>
               </div>
               <figcaption>
                 <strong>Concept render</strong>

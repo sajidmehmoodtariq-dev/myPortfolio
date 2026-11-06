@@ -320,7 +320,7 @@
   aspect-ratio: 1.32;
   transform: translate(-50%, -50%)
     rotateX(calc(12deg + var(--camera-x, 0deg)))
-    rotateY(calc(-30deg + var(--camera-y, 0deg)))
+    rotateY(calc(-30deg + var(--camera-y, 0deg) + var(--entrance-yaw, 0deg)))
     rotateZ(-5deg);
   transform-style: preserve-3d;
 }
@@ -328,7 +328,11 @@
 .assembly-layer {
   position: absolute;
   inset: 0;
-  transform: translate3d(var(--offset-x, 0px), var(--offset-y, 0px), calc(var(--depth, 0px) * var(--spread, 1)));
+  transform: translate3d(
+    calc(var(--offset-x, 0px) * var(--spread, 1)),
+    calc(var(--offset-y, 0px) * var(--spread, 1)),
+    calc(var(--depth, 0px) * var(--spread, 1))
+  );
   transform-style: preserve-3d;
 }
 
@@ -494,16 +498,20 @@
   height: 85%;
   border: 1px solid #a3b4a7;
   border-radius: 2px;
-  transform: translateY(calc(-50% + var(--shelf-y) * var(--spread, 1))) rotateX(90deg);
+  transform: translateY(
+    calc(-50% + var(--shelf-closed) + (var(--shelf-y) - var(--shelf-closed)) * var(--spread, 1))
+  ) rotateX(90deg);
 }
 
 .assembly-layer--base {
+  --shelf-closed: 18.55cqw;
   --shelf-y: 21.5cqw;
   background: linear-gradient(150deg, #4c5e53, #263a2f 53%, #101c16);
   box-shadow: 0 2px 0 #0c1611;
 }
 
 .assembly-layer--cap {
+  --shelf-closed: -18.55cqw;
   --shelf-y: -23cqw;
   inset-inline: 9% -5%;
   height: 63%;
