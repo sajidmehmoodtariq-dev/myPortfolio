@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 470" role="img" aria-label="Illustration of the assembled SMT Core">
+  <defs>
+    <linearGradient id="ceramic" x2=".8" y2="1">
+      <stop stop-color="#fffef8"/><stop offset="1" stop-color="#dcdad0"/>
+    </linearGradient>
+    <linearGradient id="metal" x2="0" y2="1">
+      <stop stop-color="#a3adac"/><stop offset=".58" stop-color="#788589"/><stop offset="1" stop-color="#4d5a63"/>
+    </linearGradient>
+    <radialGradient id="shadow">
+      <stop stop-color="#463d30" stop-opacity=".3"/><stop offset="1" stop-color="#463d30" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="333" cy="329" rx="278" ry="100" fill="url(#shadow)"/>
+  <path d="m105 235 263-132 178 71v96q0 10-14 17L283 408q-13 7-29 0l-142-66q-13-6-13-19v-73z" fill="#596369"/>
+  <path d="m100 265 162 77q13 6 27-1l257-128v48q0 12-15 19L283 402q-12 6-27-1l-146-68q-11-5-11-17z" fill="url(#ceramic)"/>
+  <path d="m100 248 162 76q14 6 27-1l257-128v46q0 11-15 19L283 382q-12 6-27-1l-146-69q-11-5-11-17z" fill="url(#metal)"/>
+  <path d="m102 235 162 77q13 7 27 0l255-127v29q0 11-15 19L283 355q-12 6-27-1l-146-68q-11-6-11-18z" fill="url(#ceramic)" stroke="#bdbfb8"/>
+  <path d="m109 223 250-126q15-7 32 0l147 69q17 9 0 18L288 310q-15 8-32 0l-145-68q-22-10-2-19z" fill="url(#ceramic)" stroke="#cecec5" stroke-width="2"/>
+  <path d="m287 354 247-123m-420 55 141 67m34 34 244-120" stroke="#344550" stroke-opacity=".66"/>
+  <g transform="matrix(.75,-.38,.85,.40,151,220)">
+    <path d="M0 2h22v5H0z" fill="#0284c7"/>
+    <text x="0" y="48" fill="#233343" font-family="sans-serif" font-weight="700" font-size="40">SMT</text>
+    <text x="1" y="67" fill="#3e4e58" font-family="monospace" font-size="10">CORE / MODULAR SYSTEMS</text>
+  </g>
+  <path d="m450 293 19-9m5-3 5-2" fill="none" stroke="#24a1be" stroke-width="3"/>
+  <path d="m486 276 5-2" stroke="#ca7940" stroke-width="3"/>
+</svg>
