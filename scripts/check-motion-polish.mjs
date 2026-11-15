@@ -95,7 +95,7 @@ try {
   await reduced.goto(base);
   await reduced.locator('[data-mode="live"] canvas').waitFor();
   assert.equal(await reduced.locator("canvas").evaluate(el => el.getAnimations().length > 0), true);
-  await reduced.getByRole("link", { name: "Contact", exact: true }).last().click();
+  await reduced.locator('[data-nav="7"]').click();
   await settled(reduced);
   await reduced.waitForFunction(() => document.activeElement?.id === "finale-title");
   await reduced.goto(base + "/work/folio");

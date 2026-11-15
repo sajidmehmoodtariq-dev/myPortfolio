@@ -193,7 +193,7 @@ try {
       });
     }
 
-    const projectLink = page.getByRole("navigation", { name: "Storyboard chapters" }).getByRole("link", { name: "Selected Work" });
+    const projectLink = page.locator('[data-nav="3"]');
     if (width === 390) await projectLink.tap();
     else {
       await projectLink.focus();
@@ -274,7 +274,7 @@ try {
       assert.deepEqual(motion(await inspect(page)), motion(sample));
     }
 
-    const archiveNav = page.getByRole("navigation", { name: "Storyboard chapters" }).getByRole("link", { name: "Credentials" });
+    const archiveNav = page.locator('[data-nav="2"]');
     await archiveNav.focus();
     await page.keyboard.press("Enter");
     await painted(page, credentialStops[0].time * 100);
@@ -307,7 +307,19 @@ try {
       await viewer.waitForURL(`**${viewerPath}`);
       const preview = viewer.getByRole("img", { name: new RegExp(`^${code} certificate`) });
       await preview.evaluate((image) => image.decode());
-      assert.equal(await preview.evaluate((image) => image.naturalWidth), 2200);
+      const previewSize = await preview.evaluate((image) => ({
+        width: image.naturalWidth, height: image.naturalHeight, displayed: image.clientWidth,
+      }));
+      assert(previewSize.width >= previewSize.displayed, "Responsive certificate must remain sharp at its displayed size");
+      assert(Math.abs(previewSize.width / previewSize.height - 2200 / 1700) < 0.01);
+      const originalImage = viewer.getByRole("link", { name: "Open full-resolution certificate image" });
+      const originalSize = await originalImage.evaluate(async (link) => {
+        const image = new Image();
+        image.src = link.href;
+        await image.decode();
+        return { width: image.naturalWidth, height: image.naturalHeight };
+      });
+      assert.deepEqual(originalSize, { width: 2200, height: 1700 });
       const downloadLink = viewer.getByRole("link", { name: "Download original PDF" });
       assert.equal(await downloadLink.getAttribute("href"), pdfPath);
       await viewer.screenshot({ path: `${folder}/${file}-viewer.png` });
@@ -624,6 +636,7 @@ try {
   await reduced.goto(base);
   const automaticCanvas = reduced.locator('[data-mode="live"] canvas');
   await automaticCanvas.waitFor();
+  await painted(reduced, 0);
   assert(await reduced.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches));
   assert.equal(await reduced.locator(".masthead button").count(), 0);
   assert.deepEqual(await automaticCanvas.boundingBox(), { x: 0, y: 0, width: 1838, height: 1028 });

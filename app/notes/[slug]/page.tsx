@@ -38,7 +38,7 @@ export default async function NotePage({ params }: NotePageProps) {
   const minutes = Math.max(1, Math.ceil((markdown.match(/\S+/g)?.length ?? 0) / 220));
 
   return (
-    <main className={styles.shell}>
+    <main id="main-content" tabIndex={-1} className={styles.shell}>
       <Link className={styles.back} href="/notes">← Engineering Notes</Link>
       <article>
         <header data-reveal="intro">

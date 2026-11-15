@@ -6,6 +6,16 @@ import Link from "next/link";
 import { credentials } from "../content/credentials";
 import { getProject } from "../content/projects";
 import { chapters, projectStops, projectSlugs } from "../content/storyboard";
+import type { Metadata } from "next";
+import { homepageTitle, homepageDescription, socialImage } from "../content/seo";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website", url: "/", title: homepageTitle,
+    description: homepageDescription, images: [socialImage()],
+  },
+};
 
 export default function Home() {
   return (
@@ -19,7 +29,12 @@ export default function Home() {
         </h1>
         <p className="role">Software Engineer <b>·</b> Full-Stack Developer <b>·</b> AI/ML</p>
         <p className="lede">Building thoughtful digital products, intelligent systems, and tools for the people who use them.</p>
-        <a className="chapter-link" href="#disassembly"><span aria-hidden="true">↓</span> Explore the assembly</a>
+        <div className="arrival-actions">
+          <a className="chapter-link" href="#disassembly"><span aria-hidden="true">↓</span> Explore the assembly</a>
+          {/* A document navigation reinitializes viewing mode and disposes WebGL. */}
+          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+          <a className="chapter-link motion-alternative" href="/?view=reading#arrival">Read without motion</a>
+        </div>
       </section>
       <section id="disassembly" className="chapter chapter--disassembly" aria-labelledby="disassembly-title">
         <p className="eyebrow"><span /> 02 / INSIDE THE CORE</p>

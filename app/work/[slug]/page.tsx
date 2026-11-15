@@ -5,6 +5,8 @@ import { caseStudies } from "../../../content/case-studies";
 import { getProject, projects } from "../../../content/projects";
 import { CaseFigure } from "./case-figure";
 import styles from "./case-study.module.css";
+import { portfolioIdentity } from "../../../content/identity";
+import { socialImage } from "../../../content/seo";
 
 type ProjectPageProps = { params: Promise<{ slug: string }> };
 
@@ -18,11 +20,13 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   const project = getProject((await params).slug);
   if (!project) notFound();
   const canonical = `/work/${project.slug}`;
+  const title = `${project.name} — ${project.category}`;
   return {
-    title: project.name,
+    title,
     description: project.summary,
     alternates: { canonical },
-    openGraph: { type: "article", title: project.name, description: project.summary, url: canonical },
+    openGraph: { type: "article", title, description: project.summary, url: canonical, images: [socialImage(project.slug, project.name)] },
+    twitter: { card: "summary_large_image", title, description: project.summary, images: [socialImage(project.slug, project.name)] },
   };
 }
 
@@ -33,9 +37,16 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   const index = projects.indexOf(project);
   const next = projects[(index + 1) % projects.length];
   const number = String(index + 1).padStart(2, "0");
+  const breadcrumbs = {
+    "@context": "https://schema.org", "@type": "BreadcrumbList",
+    itemListElement: [
+      { name: "Home", path: "/" }, { name: "Selected Work", path: "/work" }, { name: project.name, path: `/work/${project.slug}` },
+    ].map(({ name, path }, index) => ({ "@type": "ListItem", position: index + 1, name, item: new URL(path, portfolioIdentity.siteUrl).href })),
+  };
 
   return (
-    <main className={styles.study} data-case={study.accent}>
+    <main id="main-content" tabIndex={-1} className={styles.study} data-case={study.accent}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs).replace(/</g, "\\u003c") }} />
       <div className={styles.wrap}>
         <nav aria-label="Work navigation" className={styles.masthead}>
           <Link href={`/#project-${project.slug}`}><span aria-hidden="true">←</span> Back to the exhibition</Link>

@@ -55,7 +55,7 @@ export function Storyboard({ chapters, children }: { chapters: Chapter[]; childr
   }, [chapters]);
 
   return (
-    <main ref={root} className="storyboard" data-mode="loading" data-chapter="0">
+    <main id="main-content" tabIndex={-1} ref={root} className="storyboard" data-mode="loading" data-chapter="0">
       <div className="studio">
         <header className="masthead">
           <a className="wordmark" href="#arrival" aria-label="The Making of SMT, arrival">
@@ -67,7 +67,7 @@ export function Storyboard({ chapters, children }: { chapters: Chapter[]; childr
           </a>
           <nav aria-label="Storyboard chapters">
             {chapters.map(({ id, name, shortName }, index) => (
-              <a key={id} href={`#${id}`} data-nav={index} aria-label={name}>
+              <a key={id} href={`#${id}`} data-nav={index} title={name}>
                 <small>0{index + 1}</small> {shortName ? <><span className="nav-full">{name}</span><span className="nav-short">{shortName}</span></> : name}
               </a>
             ))}

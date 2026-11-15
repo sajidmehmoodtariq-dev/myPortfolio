@@ -50,11 +50,11 @@ try {
     assert(new Set(frames.map(f => JSON.stringify(f.optic))).size > 10);
     // Wheel distance differs with mobile viewport travel. Seek the Disassembly stop
     // through the real chapter link to validate the text handoff on every layout.
-    await page.getByRole("link", { name: "Disassembly", exact: true }).click();
+    await page.locator('[data-nav="1"]').click();
     await page.waitForFunction(() => document.querySelector("canvas")?.dataset.settled === "true");
     await page.locator(".chapters").evaluate(root => Promise.all(root.getAnimations({ subtree: true }).map(a => a.finished.catch(() => {}))));
     await page.screenshot({ path: `${folder}/${width}-disassembled.png` });
-    await page.getByRole("link", { name: "Credentials", exact: true }).click();
+    await page.locator('[data-nav="2"]').click();
     await page.waitForTimeout(850);
     const midText = await page.locator(".chapter--credentials h2").evaluate(el => ({ opacity: Number(getComputedStyle(el).opacity), transform: getComputedStyle(el).transform }));
     assert(midText.opacity > 0 && midText.opacity < 1, "Text must be visibly entering under the actual OS preference");

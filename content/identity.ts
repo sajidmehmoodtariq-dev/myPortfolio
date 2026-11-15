@@ -11,5 +11,5 @@ export const portfolioIdentity = {
   domains: ["Frontend development", "Backend systems", "AI/ML", "Developer tooling", "Mobile development", "Systems programming"],
   github: "https://github.com/sajidmehmoodtariq-dev",
   linkedin: "https://www.linkedin.com/in/sajid-mehmood-tariq/",
-  siteUrl: "https://www.sajidmehmoodtariq.dev",
+  siteUrl: "https://sajidmehmoodtariq.dev",
 } as const;

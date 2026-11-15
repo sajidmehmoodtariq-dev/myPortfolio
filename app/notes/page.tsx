@@ -2,18 +2,23 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { noteDate, writing } from "../../content/writing";
 import styles from "./notes.module.css";
+import { socialImage } from "../../content/seo";
 
 export const metadata = {
   title: "Engineering Notes",
   description: "Notes by Sajid Mehmood Tariq on building and inspecting software.",
   alternates: { canonical: "/notes" },
+  openGraph: {
+    type: "website", url: "/notes", title: "Engineering Notes",
+    description: "Notes by Sajid Mehmood Tariq on building and inspecting software.", images: [socialImage()],
+  },
 };
 
 export default function NotesIndex() {
   if (!writing.length) notFound();
 
   return (
-    <main className={styles.shell}>
+    <main id="main-content" tabIndex={-1} className={styles.shell}>
       <Link className={styles.back} href="/#about">← About</Link>
       <h1 data-reveal="intro">Engineering Notes</h1>
       <ul className={styles.index}>
