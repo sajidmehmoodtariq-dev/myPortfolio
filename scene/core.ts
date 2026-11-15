@@ -1,9 +1,10 @@
 import {
   BoxGeometry, CanvasTexture, CylinderGeometry, ExtrudeGeometry, Group, Mesh, MeshBasicMaterial,
-  MeshPhysicalMaterial, MeshStandardMaterial, Path, PlaneGeometry, Shape, SRGBColorSpace, type Material,
+  MeshPhysicalMaterial, MeshStandardMaterial, Path, PlaneGeometry, RepeatWrapping, Shape, SRGBColorSpace, type Material,
 } from "three";
 import { mergeGeometries, toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
-import { createDisplayTexture } from "./display";
+import { createProjectDisplay } from "./display";
+import { createArchive } from "./archive";
 
 function profile(width: number, depth: number, radius: number, outline: Shape | Path) {
   const x = width / 2;
@@ -33,7 +34,7 @@ function slab(
   }
   const geometry = new ExtrudeGeometry(shape, {
     depth: height - bevel * 2, bevelEnabled: bevel > 0, bevelSize: bevel, bevelThickness: bevel,
-    bevelSegments: 4, curveSegments: 10, steps: 1,
+    bevelSegments: bevel > .05 ? 5 : 4, curveSegments: 10, steps: 1,
   });
   geometry.translate(0, 0, -(height - bevel * 2) / 2);
   geometry.rotateX(-Math.PI / 2);
@@ -50,9 +51,10 @@ function box(group: Group, material: Material, size: [number, number, number], a
 }
 
 function batchDetails(group: Group) {
-  const batches = new Map<Material, Mesh<BoxGeometry, Material>[]>();
+  const batches = new Map<Material, Mesh<BoxGeometry | CylinderGeometry, Material>[]>();
   for (const detail of group.children) {
-    if (!(detail instanceof Mesh) || !(detail.geometry instanceof BoxGeometry) || Array.isArray(detail.material)) continue;
+    if (!(detail instanceof Mesh) || Array.isArray(detail.material) ||
+      !(detail.geometry instanceof BoxGeometry || detail.geometry instanceof CylinderGeometry)) continue;
     const batch = batches.get(detail.material) ?? [];
     batch.push(detail);
     batches.set(detail.material, batch);
@@ -67,6 +69,23 @@ function batchDetails(group: Group) {
     }
     group.add(new Mesh(geometry, material));
   }
+}
+
+function brushedRoughness(anisotropy: number) {
+  const canvas = document.createElement("canvas");
+  canvas.width = 32;
+  canvas.height = 128;
+  const ctx = canvas.getContext("2d")!;
+  for (let y = 0; y < canvas.height; y++) {
+    const tone = 205 + Math.round(16 * Math.sin(y * .31) + 13 * Math.sin(y * 1.83));
+    ctx.fillStyle = `rgb(${tone}, ${tone}, ${tone})`;
+    ctx.fillRect(0, y, canvas.width, 1);
+  }
+  const map = new CanvasTexture(canvas);
+  map.wrapS = map.wrapT = RepeatWrapping;
+  map.repeat.set(.32, .72);
+  map.anisotropy = anisotropy;
+  return map;
 }
 
 function stamp(group: Group, kind: "cover" | "chip", anisotropy: number) {
@@ -94,7 +113,7 @@ function stamp(group: Group, kind: "cover" | "chip", anisotropy: number) {
   group.add(print);
 }
 
-export function createCore(anisotropy: number) {
+export function createCore(anisotropy: number, onTextureReady: () => void) {
   const root = new Group();
   const cover = new Group();
   const optic = new Group();
@@ -112,10 +131,11 @@ export function createCore(anisotropy: number) {
   root.add(cover, optic, bezel, logic, chassis, base);
 
   const ceramic = new MeshPhysicalMaterial({
-    color: "#e4ded2", roughness: .34, metalness: .025, clearcoat: .24, clearcoatRoughness: .26,
+    color: "#ded7ca", roughness: .38, metalness: .015, clearcoat: .22, clearcoatRoughness: .29,
   });
   const edge = new MeshPhysicalMaterial({
-    color: "#929da1", roughness: .32, metalness: .87, anisotropy: .37,
+    color: "#8f9b9e", roughness: .43, metalness: .90, anisotropy: .47,
+    roughnessMap: brushedRoughness(anisotropy),
   });
   const silver = new MeshStandardMaterial({ color: "#b7c5c7", roughness: .39, metalness: .74 });
   const graphite = new MeshStandardMaterial({ color: "#24313a", roughness: .58, metalness: .21 });
@@ -126,8 +146,8 @@ export function createCore(anisotropy: number) {
     color: "#86aeb8", transparent: true, opacity: .26, roughness: .19, metalness: .14, depthWrite: false,
   });
 
-  slab(cover, ceramic, 4.58, 2.96, .30, .24, 0, .065);
-  slab(cover, edge, 4.47, 2.86, .075, .23, -.165, .02);
+  slab(cover, ceramic, 4.58, 2.96, .30, .24, 0, .075);
+  slab(cover, edge, 4.47, 2.86, .081, .23, -.161, .021);
   stamp(cover, "cover", anisotropy);
   for (let i = 0; i < 8; i++) {
     box(cover, graphite, [.19, .005, .022], [1.77, .153, -.59 + i * .069]);
@@ -136,13 +156,16 @@ export function createCore(anisotropy: number) {
   box(cover, amber, [.068, .018, .07], [1.67, .067, 1.52]);
 
   slab(optic, frosted, 3.88, 2.40, .075, .09, 0, .023);
+  const projectDisplay = createProjectDisplay(anisotropy, onTextureReady);
   const screen = new Mesh(new PlaneGeometry(3.84, 2.368), new MeshBasicMaterial({
-    map: createDisplayTexture(anisotropy), toneMapped: false, opacity: 0, transparent: true, depthWrite: false,
+    map: projectDisplay.texture, toneMapped: false, opacity: 0, transparent: true, depthWrite: false,
   }));
   screen.rotation.x = -Math.PI / 2;
   screen.position.y = .043;
   screen.renderOrder = 3;
   optic.add(screen);
+  const archive = createArchive(anisotropy, onTextureReady);
+  optic.add(archive.mount);
 
   slab(bezel, ceramic, 4.46, 2.87, .16, .20, 0, .04, [3.97, 2.49, .13]);
   slab(bezel, graphite, 4.40, 2.82, .07, .18, -.093, .025, [3.94, 2.46, .12]);
@@ -162,8 +185,22 @@ export function createCore(anisotropy: number) {
     box(logic, cyan, [.022, .006, .33], [-.50 + i * .20, .054, .80]);
     box(logic, amber, [.022, .006, .31], [-.50 + i * .20, .054, -.80]);
   }
+  for (const x of [-1.03, -.77, -.51, -.25]) {
+    box(logic, graphite, [.17, .054, .12], [x, .072, .86]);
+    box(logic, silver, [.16, .012, .03], [x, .103, .88]);
+  }
 
   slab(chassis, edge, 4.47, 2.87, .23, .20, 0, .036, [3.89, 2.29, .10]);
+  const latches = [-1, 1].map((direction) => {
+    const x = direction * 1.46;
+    box(chassis, graphite, [.35, .052, .018], [x, .075, 1.473]);
+    const seat = new Group();
+    seat.position.set(x, .075, 1.486);
+    const tab = new Mesh(new BoxGeometry(.12, .028, .02), amber);
+    seat.add(tab);
+    chassis.add(seat);
+    return { tab, direction };
+  });
   for (const x of [-1.98, 1.98]) {
     for (const z of [-1.21, 1.21]) {
       const fastener = new Mesh(new CylinderGeometry(.073, .073, .055, 12), silver);
@@ -188,7 +225,7 @@ export function createCore(anisotropy: number) {
     }
   }
 
-  for (const part of [cover, logic, chassis]) batchDetails(part);
+  for (const part of [cover, logic, chassis, base]) batchDetails(part);
 
-  return { root, cover, optic, bezel, logic, chassis, base, screen: screen.material, screenMesh: screen };
+  return { root, cover, optic, bezel, logic, chassis, base, latches, archive, projectDisplay, screen: screen.material, screenMesh: screen };
 }

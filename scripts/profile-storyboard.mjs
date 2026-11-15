@@ -4,8 +4,9 @@ import { chromium } from "playwright";
 
 const url = process.env.STORYBOARD_URL ?? "http://localhost:3000";
 const label = process.argv[2] ?? "after";
-const root = `qa-artifacts/refinement/${label}`;
-const stops = [0, 15, 30, 50, 70, 85, 100];
+const milestone02 = process.env.STORYBOARD_PROFILE === "milestone-02";
+const root = `qa-artifacts/${milestone02 ? "milestone-02" : "refinement"}/${label}`;
+const stops = milestone02 ? [0, 20, 40, 60, 80, 100] : [0, 15, 30, 50, 70, 85, 100];
 const browser = await chromium.launch({
   channel: process.env.STORYBOARD_BROWSER_CHANNEL || undefined,
   args: process.env.STORYBOARD_SOFTWARE === "1" ? ["--enable-unsafe-swiftshader", "--use-angle=swiftshader"] : [],
@@ -23,7 +24,7 @@ async function sample(page, percent) {
     const canvas = document.querySelector(".core-surface canvas");
     const target = p / 100;
     const time = performance.now();
-    const painted = () => Math.abs(Number(canvas.dataset.progress) - target) < .001;
+    const painted = () => canvas.dataset.settled === "true" && Math.abs(Number(canvas.dataset.progress) - target) < .001;
     scrollTo(0, Math.round((document.documentElement.scrollHeight - innerHeight) * target));
     for (let i = 0; !painted() && i < 80; i++) {
       await new Promise((resolve) => requestAnimationFrame(resolve));
@@ -38,11 +39,11 @@ async function sample(page, percent) {
 
 function pose(frame) {
   return [frame.camera, frame.target, frame.root.rotation, frame.root.scale, frame.displayOpacity,
-    frame.parts.map(({ localPosition, rotation, scale }) => [localPosition, rotation, scale])];
+    frame.parts.map(({ localPosition, rotation, scale }) => [localPosition, rotation, scale]), frame.latchOffsets];
 }
 
 try {
-  for (const layout of layouts) {
+  for (const layout of milestone02 ? layouts.slice(0, 3) : layouts) {
     const { width, height } = layout;
     const page = await browser.newPage({ viewport: { width, height }, ...layout });
     const issues = [];
@@ -66,12 +67,29 @@ try {
     assert.deepEqual(forward.map(pose), [...reverse].reverse().map(pose));
     assert(forward.every((frame) => frame.root.id === forward[0].root.id));
     let maxProjectedExtent = 0;
-    if (label === "after") {
+    if (label.startsWith("after")) {
       for (let percent = 0; percent <= 100; percent += 5) {
         const frame = await sample(page, percent);
         const extent = Math.max(...frame.parts.flatMap(({ projected }) => Object.values(projected).map(Math.abs)));
         assert(extent < 1.01, `Part outside frame at ${width} × ${height} / ${percent}%: ${extent}`);
         maxProjectedExtent = Math.max(maxProjectedExtent, extent);
+      }
+      if (milestone02) {
+        const [arrival, unlock, opening, , , final] = forward;
+        assert.equal(arrival.parts[0].localPosition[1], unlock.parts[0].localPosition[1]);
+        assert(Math.abs(unlock.latchOffsets[0] - arrival.latchOffsets[0]) > .08);
+        assert(opening.parts[0].localPosition[1] > unlock.parts[0].localPosition[1] + .8);
+        assert(opening.parts[1].localPosition[2] > .15);
+        assert.notDeepEqual(arrival.camera, opening.camera);
+        assert.notDeepEqual(opening.target, final.target);
+        assert.equal(final.displayOpacity, 1);
+        const rearClearance = await sample(page, 62);
+        assert(rearClearance.parts[0].localPosition[2] < -3.35);
+        assert(rearClearance.parts[0].localPosition[1] > 1.8);
+        const hold = await sample(page, 96);
+        const end = await sample(page, 100);
+        assert.deepEqual(pose(hold), pose(end));
+        assert.equal(hold.sceneRenders, end.sceneRenders);
       }
     }
 
@@ -103,6 +121,7 @@ try {
       maxProgressLag: Math.max(...sweep.frames.map(({ target, painted }) => Math.abs(target - painted))),
       longTasks: sweep.longTasksMs.length,
     };
+    assert(summary.maxProgressLag < .15, "Displayed progress must keep advancing during sustained scroll input");
     assert.equal(sweep.frames.at(-1).target, 0);
     await sample(page, 0);
     assert.deepEqual(issues, []);

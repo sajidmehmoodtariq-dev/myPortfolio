@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, type ReactNode } from "react";
 
-type Chapter = { id: string; name: string; time: number };
+type Chapter = { id: string; name: string; shortName?: string; time: number };
 
 export function Storyboard({ chapters, children }: { chapters: Chapter[]; children: ReactNode }) {
   const root = useRef<HTMLElement>(null);
@@ -13,6 +13,17 @@ export function Storyboard({ chapters, children }: { chapters: Chapter[]; childr
     const element = root.current;
     const mount = canvas.current;
     if (!element || !mount) return;
+    if (new URLSearchParams(window.location.search).get("view") === "reading") {
+      element.dataset.mode = "reading";
+      const frame = requestAnimationFrame(() => {
+        const target = document.getElementById(window.location.hash.slice(1));
+        target?.scrollIntoView();
+        const heading = target?.querySelector<HTMLElement>("h1, h2, h3");
+        heading?.setAttribute("tabindex", "-1");
+        heading?.focus({ preventScroll: true });
+      });
+      return () => cancelAnimationFrame(frame);
+    }
 
     let generation = 0;
     let dispose: (() => void) | undefined;
@@ -55,8 +66,10 @@ export function Storyboard({ chapters, children }: { chapters: Chapter[]; childr
             <span>The Making of <strong>SMT</strong></span>
           </a>
           <nav aria-label="Storyboard chapters">
-            {chapters.map(({ id, name }, index) => (
-              <a key={id} href={`#${id}`} data-nav={index}><small>0{index + 1}</small> {name}</a>
+            {chapters.map(({ id, name, shortName }, index) => (
+              <a key={id} href={`#${id}`} data-nav={index} aria-label={name}>
+                <small>0{index + 1}</small> {shortName ? <><span className="nav-full">{name}</span><span className="nav-short">{shortName}</span></> : name}
+              </a>
             ))}
           </nav>
         </header>
@@ -78,8 +91,8 @@ export function Storyboard({ chapters, children }: { chapters: Chapter[]; childr
 
         <footer className="register">
           <span className="scroll-label"><i aria-hidden="true">↓</i> SCROLL TO DIRECT</span>
-          <div className="rail" aria-hidden="true"><span /><i /><i /><i /></div>
-          <span className="register-count"><b data-counter>01</b> / 03</span>
+          <div className="rail" aria-hidden="true"><span />{chapters.map(({ id, time }) => <i key={id} style={{ left: `${time * 100}%` }} />)}<i style={{ right: 0 }} /></div>
+          <span className="register-count"><b data-counter>01</b> / {String(chapters.length).padStart(2, "0")}</span>
         </footer>
       </div>
     </main>

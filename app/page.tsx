@@ -1,10 +1,11 @@
 import { Storyboard } from "../components/storyboard";
-
-const chapters = [
-  { id: "arrival", name: "Arrival", time: 0 },
-  { id: "disassembly", name: "Disassembly", time: 0.5 },
-  { id: "transformation", name: "Transformation", time: 0.96 },
-];
+import { EngineeringChapters } from "../components/engineering-chapters";
+import { ClosingChapters } from "../components/closing-chapters";
+import Image from "next/image";
+import Link from "next/link";
+import { credentials } from "../content/credentials";
+import { getProject } from "../content/projects";
+import { chapters, projectStops, projectSlugs } from "../content/storyboard";
 
 export default function Home() {
   return (
@@ -31,19 +32,73 @@ export default function Home() {
           <li><span>04</span> Logic assembly</li>
           <li><span>05</span> Aluminum chassis</li>
         </ul>
-        <a className="chapter-link" href="#transformation"><span aria-hidden="true">↓</span> See the transformation</a>
+        <a className="chapter-link" href="#credentials"><span aria-hidden="true">↓</span> Explore the credentials</a>
+      </section>
+      <section id="credentials" className="chapter chapter--credentials" aria-labelledby="credentials-title">
+        <p className="eyebrow"><span /> 03 / LEARNING ARCHIVE</p>
+        <h2 id="credentials-title">Built on <em>curiosity.</em></h2>
+        <p className="lede">From the fundamentals of computer science to the foundations of artificial intelligence.</p>
+        <nav className="credential-index" aria-label="Choose a certificate">
+          {credentials.map(({ id, code }) => <a key={id} href={`#${id}`} data-credential-link>{code}</a>)}
+        </nav>
+        <div className="credential-entries">
+          {credentials.map((credential) => (
+            <article key={credential.id} id={credential.id} className="credential-entry" aria-labelledby={`${credential.id}-title`}>
+              <p className="credential-year">{credential.issuer} · {credential.year}</p>
+              <h3 id={`${credential.id}-title`}>{credential.title}</h3>
+              <p className="credential-detail">{credential.coursework} {credential.id === "cs50-ai" && "Project-based AI with Python."}</p>
+              <div className="credential-actions">
+                <a href={`/certificates/${credential.id}`} target="_blank" rel="noopener" aria-label={`View full certificate — ${credential.code}`}>View full certificate ↗</a>
+                <a href={credential.verificationUrl} target="_blank" rel="noopener" aria-label={`Verify credential — ${credential.code}`}>Verify credential ↗</a>
+              </div>
+              <Image className="credential-fallback" src={credential.preview} width={1440} height={1113} unoptimized
+                alt={`${credential.code} course completion certificate for ${credential.recipient}`} />
+            </article>
+          ))}
+        </div>
+        <p className="credential-note">Harvard CS50 course completions · BS Computer Science at UET Lahore, New Campus (KSK)</p>
+        <a className="chapter-link" href="#transformation"><span aria-hidden="true">↓</span> Continue to selected work</a>
       </section>
       <section id="transformation" className="chapter chapter--transformation" aria-labelledby="transformation-title">
-        <p className="eyebrow"><span /> 03 / SYSTEMS IN PRACTICE</p>
-        <h2 id="transformation-title">Built beyond<br />the <em>classroom.</em></h2>
-        <div className="project-summary">
-          <p className="project-id">PGC-DHA</p>
-          <p className="role">Institutional Management System</p>
-          <p className="lede">Admissions, student management, role-based access, and reporting.</p>
-          <p className="project-note">Technical visualization · No institutional records</p>
+        <p className="eyebrow"><span /> 04 / SELECTED WORK</p>
+        <h2 id="transformation-title">Things I&apos;ve<br /> brought to <em>life.</em></h2>
+        <p className="lede">From real-world platforms to intelligent tools and experiments.</p>
+        <nav className="project-index" aria-label="Choose a project">
+          {projectStops.map(({ id }, index) => (
+            <a key={id} href={`#${id}`} data-project-link>{getProject(projectSlugs[index])?.name}</a>
+          ))}
+        </nav>
+        <div className="project-entries">
+          {projectStops.map(({ id }, index) => {
+            const project = getProject(projectSlugs[index]);
+            if (!project) return null;
+            const previous = projectStops[index - 1];
+            const next = projectStops[index + 1];
+            return (
+              <article key={id} id={id} className="project-entry" aria-labelledby={`${id}-title`}>
+                <div className="project-heading">
+                  <h3 id={`${id}-title`}>{project.name}</h3>
+                  <p className="project-count">{String(index + 1).padStart(2, "0")} / {String(projectStops.length).padStart(2, "0")}</p>
+                </div>
+                <p className="project-category">{project.category}</p>
+                <p className="project-detail">{project.summary}</p>
+                <p className="project-stack">{project.stack.join(" · ")}</p>
+                <p className="project-note">{project.exhibit}</p>
+                <div className="project-controls">
+                  <Link href={`/work/${project.slug}`} prefetch={false}>Read case study <span aria-hidden="true">↗</span></Link>
+                  <div>
+                    {previous && <a href={`#${previous.id}`} aria-label="Previous project">←</a>}
+                    {next && <a href={`#${next.id}`} aria-label="Next project">→</a>}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
-        <a className="chapter-link" href="#arrival"><span aria-hidden="true">↑</span> Back to arrival</a>
+        <Link className="work-index-link" href="/work" prefetch={false}>View all work <span aria-hidden="true">↗</span></Link>
       </section>
+      <EngineeringChapters />
+      <ClosingChapters />
     </Storyboard>
   );
 }

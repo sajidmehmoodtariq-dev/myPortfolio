@@ -1,0 +1,17 @@
+.shell { max-width: 850px; margin-inline: auto; padding: clamp(24px, 7vw, 85px) clamp(19px, 6vw, 80px); min-height: 100svh; }
+.back { display: inline-flex; margin-bottom: clamp(34px, 8vw, 90px); font-size: .87rem; font-weight: 640; }
+.shell h1 { font-size: clamp(2.9rem, 8.5vw, 6.8rem); overflow-wrap: anywhere; }
+.label { color: #285960; font: 610 .72rem/1.5 var(--mono); margin-bottom: 9px; text-transform: uppercase; }
+.summary { margin-top: 16px; font-size: 1.2rem; color: var(--quiet); }
+.index { list-style: none; padding: 0; margin-top: 30px; }
+.index li { border-top: 1px solid var(--line); padding: 20px 0; }
+.shell h2 { font-size: clamp(1.5rem, 4vw, 2.45rem); margin-bottom: 12px; }
+.prose { margin-top: 35px; border-top: 1px solid var(--line); padding-top: 20px; line-height: 1.65; overflow-wrap: anywhere; }
+.prose > * { margin-block: 0 16px; }
+.prose a, .references a, .index a:hover, .back:hover { text-decoration: underline; text-underline-offset: .24em; }
+.prose code { font: .9em/1.6 var(--mono); }
+.prose pre { padding: 16px; max-width: 100%; overflow: auto; background: #e8e6df; border: 1px solid var(--line); }
+.prose blockquote { border-left: 2px solid #50898f; padding-left: 14px; margin-inline: 0; }
+.prose img { max-width: 100%; height: auto; }
+.references { border-top: 1px solid var(--line); padding-top: 18px; }
+.references ul { line-height: 1.65; }

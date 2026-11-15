@@ -1,0 +1,20 @@
+.shell {
+  min-height: 100svh;
+  padding: clamp(28px, 7vw, 100px);
+  background: var(--cream);
+}
+
+.back { font-size: .875rem; font-weight: 600; }
+.content { max-width: 44rem; margin-top: clamp(52px, 12vh, 132px); }
+.label { color: var(--quiet); font: 500 .75rem/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.content h1 { margin-block: 14px 20px; font-size: clamp(2.75rem, 10vw, 7rem); overflow-wrap: anywhere; }
+.summary { color: var(--quiet); max-width: 38ch; line-height: 1.55; font-size: clamp(1rem, 2.5vw, 1.3rem); }
+.stack { margin-top: 13px; color: var(--quiet); font: 500 .76rem/1.5 var(--mono); }
+.evidence { border-top: 1px solid var(--line); margin-top: 36px; padding-top: 24px; }
+.evidence h2 { font-size: 1.25rem; letter-spacing: -.02em; }
+.evidence ul { margin-block: 16px; padding-inline-start: 1.25rem; line-height: 1.8; }
+.evidence a, .back:hover { text-decoration: underline; text-underline-offset: .2em; }
+.index { list-style: none; padding: 0; margin: 32px 0 0; border-top: 1px solid var(--line); }
+.index a { display: grid; grid-template-columns: minmax(6rem, .65fr) 1fr auto; gap: 12px; padding-block: 15px; align-items: center; border-bottom: 1px solid var(--line); }
+.index a:hover strong { text-decoration: underline; text-underline-offset: .25em; }
+.index span { color: var(--quiet); font-size: .83rem; }
